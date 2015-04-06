@@ -1,0 +1,88 @@
+<%inherit file="base.htm" />
+<%block name="content">
+<h3 class="head">Confirm Your Order</h3>
+%if request.session['shopping_cart']:
+<div class="col-md-6" style="margin-top:30px;"><h4>Shopping Cart</h4>
+<table class="table-responsive table-striped left">
+    <th>#</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    %for item in items:
+    <tr>
+        <td class="img-col"><img class="shopping_cart_image" src="${STATIC_URL}${ item.photo.image }"/></td>
+        <td class="name-col">${ item.name }</td>
+        <td class="price-col">${ item.price }</td>
+        <td class="qty-col">${ request.session['shopping_cart'][str(item.id)] }</td>
+    </tr>
+    %endfor
+</table>
+</div>
+%endif
+%if request.session['rental_cart']:
+<div class="col-md-6" style="margin-top:30px;float:right;"><h4>Rental Cart</h4>
+<table class="table-responsive table-striped left">
+    <th>#</th>
+    <th>Name</th>
+    <th>Price per Day</th>
+    <th># of Days Rented</th>
+    %for rental in rentals:
+    <tr>
+        <td class="img-col"><img class="shopping_cart_image" src="${STATIC_URL}${ rental.photo.image }"/></td>
+        <td class="name-col">${ rental.name }</td>
+        <td class="price-col">${ rental.price_per_day }</td>
+        <td class="qty-col">${ request.session['rental_cart'][str(rental.id)] }</td>
+    </tr>
+    %endfor
+</table>
+</div>
+%endif
+<table class="table-responsive right">
+    <th class="info-head">Please fill out your shipping information</th>
+    <tr class="roww">
+        <td class="input"><input placeholder="Street 1" type="text"/></td>
+        <td class="input"><input placeholder="Street 2" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="City" type="text"/></td>
+        <td class="input"><input placeholder="State" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Zip Code" type="text"/></td>
+        <td class="input"><input placeholder="Phone" type="text"/></td>
+    </tr>
+
+</table>
+<table id="table-billing" class="table-responsive right">
+    <th class="info-head">Please fill out your billing information</th>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing Street 1" type="text"/></td>
+        <td class="input"><input placeholder="Billing Street 2" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing City" type="text"/></td>
+        <td class="input"><input placeholder="Billing State" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing Zip Code" type="text"/></td>
+        <td class="input"><input placeholder="Billing Phone" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Name on Card" type="text"/></td>
+        <td class="input"><input placeholder="Credit Card Number" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Expiration Date" type="text"/></td>
+        <td class="input"><input placeholder="CVV Code" type="text"/></td>
+    </tr>
+</table>
+
+<table>
+
+
+</table>
+
+</%block>
+<%block name="line">
+<button id="checkout" method="POST" class="btn btn-warning">Place Order</button>
+</%block>

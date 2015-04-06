@@ -1,0 +1,23 @@
+<%inherit file="base.htm" />
+<%block name="title">
+<div style="height:150px;">
+    <div class="search1">
+        <input id="search" placeholder="search"/>
+        <a id="searchbox" class="btn btn-primary">search</a>
+    </div>
+</div>
+</%block>
+<%block name="content">
+
+    %for product in products:
+
+    <div class="grid-container">
+        <div class="item_container">
+            <a href="products.viewreturn/${product.id}"><img src="${STATIC_URL}${ product.rental_product.photo }"/></a>
+            <div>${product.rental_product.name}</div>
+            <div>${product.transaction.customer.first_name}</div>
+            <div>Due: ${product.date_due.strftime('%B %d, %Y')}</div>
+        </div>
+    </div>
+    %endfor
+</%block>

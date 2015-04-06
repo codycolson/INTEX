@@ -1,0 +1,14 @@
+<h4>Thank you for your purchase!</h4>
+</br>
+</br>
+%for productspecification in items:
+
+<div class="grid-container">
+    <div class="item_container">
+        <div>${productspecification.name}</div>
+        <div>$${productspecification.price}</div>
+    </div>
+</div>
+%endfor
+
+<p>If you have any questions or concerns about your items, please contact our support team at support@colonialheritagefoundation.com</p>

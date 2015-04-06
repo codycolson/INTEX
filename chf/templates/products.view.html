@@ -1,0 +1,24 @@
+<%inherit file="base.htm" />
+<%block name="content">
+    <div id="main" class="photo">
+        <img class="main_photo" src="${STATIC_URL}${ item.photo.image }"/>
+    </div>
+    <div class="info">
+        <h4>${ item.name }</h4>
+        <div class="price">Price per day $${item.price_per_day}</div>
+        <div class="description">${item.description}</div>
+        <select style="float:left" id="select">
+            <option value="0">Number of Days</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button rel="${ item.id }" disabled="true" id="add_to_cart" class="btn btn-warning">Add to Cart</button>
+    </div>
+
+
+</%block>
+<%block name="line">
+</%block>

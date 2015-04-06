@@ -1,0 +1,30 @@
+<%inherit file="base.htm" />
+<%block name="content">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th></th>
+                </tr>
+                %for address in addresses:
+                <tr style="text-align:left;">
+                    <td>${address.street1}</td>
+                    <td>${address.street2}</td>
+                    <td>${address.city}</td>
+                    <td>${address.state}</td>
+                    <td>${address.zip_code}</td>
+                    <td><a href="address.edit/${address.id}">Edit</a><span> | </span><a style="color:#CF000F" href="address.delete/${address.id}">Delete</a></td>
+                </tr>
+                %endfor
+            </tbody>
+        </table>
+    </div>
+</%block>
+<%block name="line">
+    <a class="btn btn-success" href="/address.create" style="float:right">Create New</a>
+</%block>

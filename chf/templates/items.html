@@ -1,0 +1,17 @@
+<%inherit file="base.htm" />
+<%block name="content">
+<div class="search1">
+    <input id="search" placeholder="search"/>
+    <a id="searchbox" class="btn btn-primary">search</a>
+</div>
+    %for productspecification in items:
+
+    <div class="grid-container">
+        <div class="item_container">
+            <a href="items.view/${productspecification.id}"><img src="${STATIC_URL}${ productspecification.photo }"/></a>
+            <div>${productspecification.name}</div>
+            <div>$${productspecification.price}</div>
+        </div>
+    </div>
+    %endfor
+</%block>

@@ -1,0 +1,19 @@
+<%inherit file="base.htm" />
+<%block name="content">
+    <div id="main" class="photo">
+        <img class="main_photo" src="${STATIC_URL}${ item.rental_product.photo }"/>
+    </div>
+    <div class="info">
+        <h4>${ item.rental_product.name }</h4>
+        <div class="price">Price per day $${item.rental_product.price_per_day}</div>
+        <div class="description"><b>Date Rented:</b> ${item.date_out.strftime('%B %d, %Y')}</div>
+        <div class="description"><b>Date Due:</b> ${item.date_due.strftime('%B %d, %Y')}</div>
+        <div class="description">Damage notes: </br><textarea rows="4" cols="50">${item.rental_product.notes}</textarea></div>
+        <div class="description">Damage fee: <input rows="4" cols="50"/></div>
+        <div class="description"><a href="products.return/${ item.id }" class="btn btn-warning">Return this Item</a></div>
+    </div>
+
+
+</%block>
+<%block name="line">
+</%block>

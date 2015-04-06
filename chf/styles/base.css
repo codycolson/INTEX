@@ -1,0 +1,105 @@
+.footer-links{
+    padding-left:30px;
+    padding-right:30px;
+    margin-top:30px;
+}
+
+.header-links{
+    margin-left:35px;
+    margin-right:35px;
+
+}
+
+.edit {
+    margin-bottom: 60px;
+}
+
+.row well{
+
+    background-color: blue;
+}
+
+#main{
+    background: LightGray;
+    margin-bottom:30px;
+}
+
+#middle{
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#top{
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.center-menu{
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 75px;
+    padding-top:50px;
+}
+
+footer{
+    text-align: center;
+
+}
+
+#footer {
+    height:75px;
+}
+
+.copyright{
+    text-align: center;
+    margin: 0 auto;
+    color: LightGray;
+    }
+
+#bottom{
+    margin-bottom:150px;
+}
+
+table {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.edit-table {
+    padding-right:50px;
+}
+
+.logout{
+    text-align: right;
+}
+
+#login-button {
+    float:right;
+
+}
+
+#create {
+    margin-right:30px;
+    margin-bottom:30px;
+    float:right;
+}
+
+.right {
+    float:right;
+    margin-right:30px;
+}
+
+.spacer {
+    height:27px;
+}
+
+#show_login_dialog {
+    margin-right: 10px;
+}
+
+#top-header {
+    margin-top:0px;
+}

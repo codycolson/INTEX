@@ -1,0 +1,15 @@
+<%inherit file="base.htm" />
+<%block name="content">
+    <h2 class="edit">Sign up!</h2>
+    <div class="table-responsive">
+       <form id="account_edit_form" method="post" action="account.create">
+        <table>
+            <tr>
+            ${ form }
+            </tr>
+        </table>
+
+        <button id="create" class="btn btn-success" type="submit">Create Account!</button>
+    </form>
+    </div>
+</%block>

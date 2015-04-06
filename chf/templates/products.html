@@ -1,0 +1,25 @@
+<%inherit file="base.htm" />
+<%block name="title">
+<div style="height:150px;">
+    <div class="search1" style="float:left">
+    <input id="search" placeholder="search"/>
+    <a id="searchbox" class="btn btn-primary">search</a>
+</div>
+<div class="search2" style="float:right">
+    <a id="returnbox" href="products.returnrental" class="btn btn-primary">return an item</a>
+</div>
+    </div>
+</%block>
+<%block name="content">
+
+    %for product in products:
+
+    <div class="grid-container">
+        <div class="item_container">
+            <a href="products.view/${product.id}"><img src="${STATIC_URL}${ product.photo }"/></a>
+            <div>${product.name}</div>
+            <div>$${product.price}</div>
+        </div>
+    </div>
+    %endfor
+</%block>

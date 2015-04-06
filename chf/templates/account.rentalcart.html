@@ -1,0 +1,33 @@
+<%inherit file="base_ajax.htm" />
+<%!
+from datetime import datetime, timedelta
+now = datetime.now()
+noww = now.strftime('%B %d, %Y')
+%>
+${nowww = noww - timedelta(days=3)}
+<%block name="content">
+
+<table class="table-responsive table-striped">
+    <th></th>
+    <th>#</th>
+    <th>Name</th>
+    <th>Price per Day</th>
+    <th># of Days Rented</th>
+    %for item in rentals:
+    <tr>
+        <td><button rel="${ item.id }" class="btn btn-danger btn-sm deleter">Remove</button></td>
+        <td class="img-col"><img class="shopping_cart_image" src="${STATIC_URL}${ item.photo.image }"/></td>
+        <td class="name-col">${ noww }</td>
+        <td class="price-col">${ item.price_per_day }</td>
+        <td class="qty-col">${int(request.session['rental_cart'][str(item.id)])}</td>
+    </tr>
+    %endfor
+</table>
+<table id="button-table" class="table-responsive">
+    <tr>
+        <td id="space"></td>
+        <td id='checkout'><a href="/account.checkout" class="btn btn-warning">Checkout</a></td>
+    </tr>
+</table>
+</%block>
+

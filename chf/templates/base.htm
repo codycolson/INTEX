@@ -1,0 +1,105 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Colonial Heritage Foundation</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="CH Foundation store and informative website">
+    <meta name="keywords" content="colonial, heritage, foundation, store, civil war">
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${STATIC_URL}bower_components/flat-ui/dist/css/flat-ui.min.css"/>
+    <script src="${STATIC_URL}chf/media/jquery.form.js"></script>
+    <script src="${STATIC_URL}chf/media/jquery.loadmodal.js"></script>
+  </head>
+
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+
+  <body>
+    <header>
+        <nav id="top-header" class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Colonial Heritage Foundation</a>
+                 </div>
+            </div>
+        </nav>
+    </header>
+    <div class="right">
+        %if request.user.is_authenticated():
+            Welcome, ${ request.user.get_full_name() }!<div class="logout"><a href="/account">Account</a><span> | </span><a href="/logout">Log out</a></div>
+        %else:
+            <button id="show_login_dialog" class="btn btn-success">Login</button>
+            <a href="account.create">Register</a>
+        %endif
+    </div>
+
+    <div id="middle">
+        <div class="center-menu">
+            <ul class="list-inline">
+              <li class="header-links"><a href="/items">Items</a></li>
+              <li class="header-links"><a href="/products">Products</a></li>
+              <li class="header-links"><a href="/events">Events</a></li>
+              <li class="header-links"><a href="/areas">Areas</a></li>
+              <li class="header-links"><a href="/users">Users</a></li>
+              <li class="header-links"><a href="/batch">Batch</a></li>
+              <li class="header-links"><a href="/report">Report</a></li>
+                %if request.user.is_authenticated():
+              <li class="header-links"><a href="/account.checkout">My Cart</a></li>
+                %endif
+            </ul>
+        </div>
+            <%block name="title">
+            </%block>
+        <div id = "main" class="container-fluid">
+            <div class="row">
+                    <%block name="content">
+                    </%block>
+            </div>
+        </div>
+        <div id = "alt" class="container-fluid">
+            <div class = "row-fluid">
+                <%block name="alt">
+                </%block>
+            </div>
+        </div>
+        <div id = "nine" class="container-fluid">
+            <div class = "row-fluid">
+                <%block name="nine">
+                </%block>
+            </div>
+        </div>
+        <div id = "bottom" class="container-fluid">
+            <div class = "row-fluid">
+                <%block name="line">
+                </%block>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div id = footer class="row-fluid">
+            <div class="spacer"></div>
+            <span class="footer-links"><a href="/about">about</a></span>
+            <span class="footer-links"><a href="/contact">contact</a></span>
+            <span class="footer-links"><a href="/terms">terms</a></span>
+
+        </div>
+    </footer>
+
+    <div class="copyright"><span>Copyright 2015, Colson Enterprises</span></div>
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }  
+  </body>
+</html>

@@ -1,0 +1,37 @@
+.item_container {
+    display: inline-block;
+    margin: 12px;
+    padding: 4px;
+    height: 290px;
+    width: 265px;
+    text-align:left;
+    font-size:14px;
+}
+
+.item_container > a > img {
+    width: 184px;
+    height: 274px;
+}
+
+#main {
+    background-color: White;
+}
+
+.grid-container {
+    height: 375px;
+    width: 275px;
+    display: inline-block;
+    float: left;
+}
+
+#row {
+    padding-left:40px;
+}
+
+.search1 {
+    margin-bottom:25px;
+}
+
+.searchbox {
+
+}

@@ -1,0 +1,26 @@
+<%inherit file="base_ajax.htm" />
+<%block name="content">
+<table class="table-responsive table-striped">
+    <th></th>
+    <th>#</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    %for item in items:
+    <tr>
+        <td><button rel="${ item.id }" class="btn btn-danger btn-sm deleter">Remove</button></td>
+        <td class="img-col"><img class="shopping_cart_image" src="${STATIC_URL}${ item.photo.image }"/></td>
+        <td class="name-col">${ item.name }</td>
+        <td class="price-col">${ item.price }</td>
+        <td class="qty-col">${ request.session['shopping_cart'][str(item.id)] }</td>
+    </tr>
+    %endfor
+</table>
+<table id="button-table" class="table-responsive">
+    <tr>
+        <td id="space"></td>
+        <td id='checkout'><a href="/account.checkout" class="btn btn-warning">Checkout</a></td>
+    </tr>
+</table>
+</%block>
+

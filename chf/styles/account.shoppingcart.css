@@ -1,0 +1,43 @@
+.shopping_cart_image {
+    height:80px;
+    margin:12px;
+}
+
+.check-col {
+    margin-top:-30px;
+}
+
+.img-col {
+    width:200px;
+    text-align:left;
+}
+
+.name-col {
+    width:200px;
+    text-align:left;
+}
+
+.price-col {
+    width:180px;
+    text-align:left;
+}
+
+.qty-col {
+    width:120px;
+}
+
+#checkout {
+    text-align:right;
+}
+
+#button-table {
+    margin-top:20px;
+}
+
+#delete {
+    text-align:left;
+}
+
+#space {
+    width:450px;
+}

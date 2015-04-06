@@ -1,0 +1,14 @@
+<%inherit file="base_ajax.htm" />
+<%block name="content">
+    <div class="table-responsive">
+       <form id="loginform" method="post" action="mylogin.loginform">
+        <table>
+            <tr>
+            ${ form }
+            </tr>
+        </table>
+        <a href="/password_reset/">Forgot your password?</a>
+        <button id="login-button" class="btn btn-success" type="submit">Login</button>
+    </form>
+        </div>
+</%block>
