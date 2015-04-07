@@ -10,7 +10,7 @@
         <div class="description"><b>Date Due:</b> ${item.date_due.strftime('%B %d, %Y')}</div>
         <div class="description">Damage notes: </br><textarea rows="4" cols="50">${item.rental_product.notes}</textarea></div>
         <div class="description">Damage fee: <input rows="4" cols="50"/></div>
-        <div class="description"><a href="products.return/${ item.id }" class="btn btn-warning">Return this Item</a></div>
+        <div class="description"><a href="/products.processreturn/${ item.id }" class="btn btn-warning">Return this Item</a></div>
     </div>
 
 

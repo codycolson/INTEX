@@ -10,6 +10,7 @@ import chf.models as chfmod
 from django.shortcuts import render
 from django_mako_plus.controller.router import get_renderer
 from django import forms
+from datetime import *
 
 
 templater = get_renderer('chf')
@@ -131,3 +132,16 @@ def viewreturn(request):
     params['item'] = item
 
     return templater.render_to_response(request, '/products.viewreturn.html', params)
+
+@view_function
+def processreturn(request):
+
+    item = chfmod.RentalItem.objects.filter(date_in=None).get(id=request.urlparams[0])
+
+    w = datetime.now()
+
+    item.date_in = w
+    item.save()
+    print(item.date_in)
+    return HttpResponseRedirect('/products.returnrental')
+

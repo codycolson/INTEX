@@ -255,7 +255,7 @@ class RentalItem(LineItem):
 
     @property
     def days_late(self):
-        return abs(date_due - datetime.now()).days > 0
+        return abs(self.date_due.days - datetime.now()).days > 0
 
     def return_item(self, damage_fee = None, damage_description = None, damage_waived = False, late_waived = False, late_fee = None): #returns the number of days late if any, else returns 0
         date_in = datetime.now()

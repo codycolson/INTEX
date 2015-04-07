@@ -27,8 +27,8 @@ def process_request(request):
     i = datetime.now() - timedelta(days=30)
     ii = datetime.now() - timedelta(days=60)
     iii = datetime.now() - timedelta(days=90)
-    batch1 = chfmod.RentalItem.objects.filter(date_due__lte=i).filter(date_in=None)
-    batch2 = chfmod.RentalItem.objects.filter(date_due__lte=ii).filter(date_in=None)
+    batch1 = chfmod.RentalItem.objects.filter(date_due__lte=i).filter(date_in=None).filter(date_due__gte=ii)
+    batch2 = chfmod.RentalItem.objects.filter(date_due__lte=ii).filter(date_in=None).filter(date_due__gte=iii)
     batch3 = chfmod.RentalItem.objects.filter(date_due__lte=iii).filter(date_in=None)
     params['batch1'] = batch1
     params['batch2'] = batch2

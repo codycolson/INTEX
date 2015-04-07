@@ -100,37 +100,37 @@ photo = chfmod.Photograph()
 photo.image = "chf/media/rifle.jpg"
 photo.save()
 
-prod = chfmod.RentalProduct()
-prod.name = "this hat"
-prod.description = "Do you see how nice it is?"
-prod.manufacturer = "CHF"
-prod.average_cost = 20
-prod.price = 30
-prod.category = chfmod.Category.objects.get(id=1)
-prod.sku = 1234567890
-prod.photo = chfmod.Photograph.objects.get(id=1)
-prod.quantity_on_hand = 5
-prod.cost = 35
-prod.notes = "I hate this hat"
-prod.times_rented = 4
-prod.price_per_day = 5
-prod.save()
+prod1 = chfmod.RentalProduct()
+prod1.name = "this hat"
+prod1.description = "Do you see how nice it is?"
+prod1.manufacturer = "CHF"
+prod1.average_cost = 20
+prod1.price = 30
+prod1.category = chfmod.Category.objects.get(id=1)
+prod1.sku = 1234567890
+prod1.photo = chfmod.Photograph.objects.get(id=1)
+prod1.quantity_on_hand = 5
+prod1.cost = 35
+prod1.notes = "I hate this hat"
+prod1.times_rented = 4
+prod1.price_per_day = 5
+prod1.save()
 
-prod = chfmod.RentalProduct()
-prod.name = "ragged pants"
-prod.description = "You do not want these pants."
-prod.manufacturer = "CHF"
-prod.average_cost = 50
-prod.price = 70
-prod.category = chfmod.Category.objects.get(id=2)
-prod.sku = 123456789
-prod.photo = chfmod.Photograph.objects.get(id=2)
-prod.quantity_on_hand = 1
-prod.cost = 35
-prod.notes = "I hate these pants"
-prod.times_rented = 4
-prod.price_per_day = 5
-prod.save()
+prod2 = chfmod.RentalProduct()
+prod2.name = "ragged pants"
+prod2.description = "You do not want these pants."
+prod2.manufacturer = "CHF"
+prod2.average_cost = 50
+prod2.price = 70
+prod2.category = chfmod.Category.objects.get(id=2)
+prod2.sku = 123456789
+prod2.photo = chfmod.Photograph.objects.get(id=2)
+prod2.quantity_on_hand = 1
+prod2.cost = 35
+prod2.notes = "I hate these pants"
+prod2.times_rented = 4
+prod2.price_per_day = 5
+prod2.save()
 
 prod = chfmod.ProductSpecification()
 prod.name = "Uniform that was actually worn"
@@ -354,7 +354,7 @@ transaction.customer = user1
 transaction.save()
 
 rent = chfmod.RentalItem()
-rent.rental_product = chfmod.RentalProduct.objects.get(id=rental.id)
+rent.rental_product = chfmod.RentalProduct.objects.get(id=prod1.id)
 rent.date_due = '2015-01-10 00:00:00'
 rent.amount = rent.rental_product.price_per_day * 7
 rent.date_in = None
@@ -365,7 +365,7 @@ rent.date_out = '2014-01-07 00:00:00'
 rent.save()
 
 rent2 = chfmod.RentalItem()
-rent2.rental_product = chfmod.RentalProduct.objects.get(id=rental2.id)
+rent2.rental_product = chfmod.RentalProduct.objects.get(id=prod2.id)
 rent2.date_due = '2015-01-10 00:00:00'
 rent2.amount = rent.rental_product.price_per_day * 7
 rent2.date_in = '2015-01-09 00:00:00'
@@ -383,7 +383,7 @@ transaction.customer = user
 transaction.save()
 
 rent = chfmod.RentalItem()
-rent.rental_product = chfmod.RentalProduct.objects.get(id=rental.id)
+rent.rental_product = chfmod.RentalProduct.objects.get(id=prod2.id)
 rent.date_due = '2015-02-10 00:00:00'
 rent.amount = rent.rental_product.price_per_day * 7
 rent.date_in = None
@@ -392,17 +392,5 @@ rent.transaction = transaction
 rent.save()
 rent.date_out = '2015-02-03 00:00:00'
 rent.save()
-
-rent2 = chfmod.RentalItem()
-rent2.rental_product = chfmod.RentalProduct.objects.get(id=rental2.id)
-rent2.date_due = '2015-02-10 00:00:00'
-rent2.amount = rent.rental_product.price_per_day * 7
-rent2.date_in = None
-rent2.discount_percent = None
-rent2.transaction = transaction
-rent2.save()
-rent2.date_out = '2015-02-03 00:00:00'
-rent2.save()
-
 
 transaction.save()
