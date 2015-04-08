@@ -74,7 +74,8 @@ class LoginForm(forms.Form):
 def loginform(request):
 
     params = {}
-
+    params['url'] = request.urlparams[0]
+    print('>>>>>>>>>>>>>>>>',params['url'])
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -100,4 +101,32 @@ def loginform(request):
 
     params['form'] = form
     return templater.render_to_response(request, 'mylogin.loginform.html', params)
+
+@view_function
+def loginformcart(request):
+
+    params = {}
+    params['url'] = request.urlparams[0]
+    print('>>>>>>>>>>>>>>>>',params['url'])
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            uid = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username=uid,password=pw)
+
+            if user == None:
+                uid = re.sub("$","@CHF",uid)
+                user = authenticate(username=uid,password=pw)
+                print(uid + ">>>>" + pw)
+                login(request, user)
+
+            else:
+                login(request, user)
+
+            return HttpResponseRedirect('account.checkout')
+
+    params['form'] = form
+    return templater.render_to_response(request, 'mylogin.loginformcart.html', params)
 

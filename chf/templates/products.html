@@ -1,13 +1,41 @@
 <%inherit file="base.htm" />
-<%block name="title">
-<div style="height:150px;">
-    <div class="search1" style="float:left">
-    <input id="search" placeholder="search"/>
-    <a id="searchbox" class="btn btn-primary">search</a>
+<%block name='side'>
+<div class="left-box"></div>
+<div class="right-box"></div>
+<div class="center-box">
+    <div class="category-list">Categories:</div>
+    %for c in categories:
+        <div class="category-link"><a href="/products/${ c.id }">${c.name if c.name != 'Custom Orders' else ""}</a></div>
+    %endfor
+    %if subcategories:
+        <div class="subcategory-list">Filter:</div>
+        %for s in subcategories:
+        <div class="category-link"><a href="/products/3/${ s.id }">${s.name}</a></div>
+        %endfor
+    %endif
+    <div id="input-box" class="input-group input-group-hg input-group-rounded">
+      <span class="input-group-btn">
+        <a id="searchbox" class="btn"><span class="fui-search"></span></a>
+      </span>
+        %if search:
+        <input type="text" class="form-control" value="${search}" placeholder="Search" id="search">
+        %else:
+        <input type="text" class="form-control" placeholder="Search" id="search">
+        %endif
+    </div>
 </div>
-<div class="search2" style="float:right">
-    <a id="returnbox" href="products.returnrental" class="btn btn-primary">return an item</a>
-</div>
+</%block>
+<%block name="breadcrumbs">
+<div>
+<ol class="breadcrumb">
+    <li><a href="/products">Products</a></li>
+    %if cat:
+        <li><a href="/products/${cat.id}">${cat.name}</a></li>
+    %endif
+    %if sub:
+        <li><a href="/products/${sub.id}">${sub.name}</a></li>
+    %endif
+</ol>
     </div>
 </%block>
 <%block name="content">
@@ -16,10 +44,11 @@
 
     <div class="grid-container">
         <div class="item_container">
-            <a href="products.view/${product.id}"><img src="${STATIC_URL}${ product.photo }"/></a>
+            <a href="/products.view/${product.id}"><img src="${STATIC_URL}${ product.photo }"/></a>
             <div>${product.name}</div>
             <div>$${product.price}</div>
         </div>
     </div>
     %endfor
+
 </%block>

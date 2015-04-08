@@ -38,25 +38,35 @@ def edit(request):
     try:
         user = chfmod.User.objects.get(id=request.urlparams[0])
     except:
-        return HttpResponseRedirect('/users')
+        pass
 
     form = UserEditForm(initial={
         'username': user.username,
         'email': user.email,
         'first_name': user.first_name,
         'last_name': user.last_name,
-
+        'is_staff': user.is_staff,
+        'is_superuser': user.is_superuser,
+        'userid': user.id,
     })
     if request.method == 'POST':
         form = UserEditForm(request.POST)
-        form.userid = user.id
+        print(">>>>>>>>>>>>>>>>> Got here")
         if form.is_valid():
+            user = chfmod.User.objects.get(id=form.cleaned_data['userid'])
+            print(user)
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.username = form.cleaned_data['username']
             user.email = form.cleaned_data['email']
+            user.is_staff = form.cleaned_data['is_staff']
+            user.is_superuser = form.cleaned_data['is_superuser']
             user.save()
-            return HttpResponseRedirect('/users')
+            return HttpResponse('''
+                <script>
+                window.location.href = window.location.href;
+                </script>
+            ''')
 
 
     params['form'] = form
@@ -67,6 +77,9 @@ class UserEditForm(forms.Form):
     email = forms.CharField(required=True, max_length=100)
     first_name = forms.CharField(required=True, max_length=100)
     last_name = forms.CharField(required=True, max_length=100)
+    is_staff = forms.BooleanField(required=False)
+    is_superuser = forms.BooleanField(required=False)
+    userid = forms.IntegerField(required=True)
 
 
     def clean_username(self):

@@ -4,6 +4,7 @@ from polymorphic import PolymorphicModel
 import requests
 from datetime import datetime
 
+
 class Address(models.Model):
     street1 = models.TextField(max_length=200)
     street2 = models.TextField(max_length=200, null=True, blank=True)
@@ -52,11 +53,11 @@ class User(AbstractUser):
 class Event(models.Model):
     name = models.TextField(max_length=200)
     description = models.TextField(max_length=200)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
     map_file_name = models.TextField(max_length=200, null=True)
     venue_name = models.TextField(max_length=200, null = True)
-    address = models.ForeignKey(Address, related_name='+')
+    address = models.ForeignKey(Address, related_name='+',null=True)
 
 class Area(models.Model):
     '''
@@ -77,8 +78,8 @@ class ExpectedSaleItem(models.Model):
     event = models.ForeignKey(Event, related_name='+')
 
 class Transaction(models.Model):
-    order_date = models.DateTimeField(auto_now_add=True)
-    phone = models.TextField(null=True)
+    order_date = models.DateTimeField()
+    phone = models.TextField()
     date_packed = models.DateTimeField(null=True)
     date_shipped = models.DateTimeField(null=True)
     tracking_number = models.FloatField(null=True)
@@ -90,13 +91,14 @@ class Transaction(models.Model):
     customer = models.ForeignKey('User', related_name='orders', null = True)
     cc_charge_id = models.TextField(null = True)
     date_charged = models.DateTimeField(null = True)
+    #confirmation = models.TextField(null = True)
 
     @property
     def number_of_items(self):
-        items = chfmod.LineItem.objects.get(transaction = self.id)
+        items = self.LineItem
         return_dictionary = {}
         for item in items:
-            if type(item) == chfmod.SaleItem:
+            if type(item) == SaleItem:
                 return_dictionary[item.name] = item.quantity
             return_dictionary[item.name] = 1
         return return_dictionary
@@ -174,6 +176,13 @@ class Category(models.Model):
     '''
     name = models.TextField(max_length=200)
 
+class SubCategory(models.Model):
+    '''
+
+    '''
+    name = models.TextField(max_length=200)
+    category = models.ForeignKey(Category, related_name='+', null=True)
+
 class ProductSpecification(PolymorphicModel):
     '''
         The specification of a product that is in our catalog.
@@ -186,6 +195,7 @@ class ProductSpecification(PolymorphicModel):
     sku = models.TextField(max_length=20, null=True)
     order_form_name = models.TextField(max_length=200, null=True)
     production_time = models.TextField(max_length=200, null=True)
+    subcategory = models.ForeignKey(SubCategory, related_name='+', null=True)
     category = models.ForeignKey(Category, related_name='+', null=True)
     owner = models.ForeignKey(User, null=True)
     photo = models.ForeignKey(Photograph, null=True)

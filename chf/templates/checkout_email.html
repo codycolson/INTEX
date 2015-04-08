@@ -1,13 +1,12 @@
 <h4>Thank you for your purchase!</h4>
 </br>
 </br>
-
-%for item in items:
+%for productspecification in items:
 
 <div class="grid-container">
     <div class="item_container">
-        <div>${item.name}</div>
-        <div>$${item.price}</div>
+        <div>${productspecification.name}</div>
+        <div>$${productspecification.price}</div>
     </div>
 </div>
 %endfor

@@ -34,18 +34,55 @@
         <td class="qty-col">${ request.session['rental_cart'][str(rental.id)] }</td>
     </tr>
     %endfor
-
 </table>
 </div>
 %endif
-  <div class="col-md-12">
-    <form method=POST>
-      <table class="table-table-responsive table-striped left" action="/account.checkout">
-        ${ form }
-      <table class="table-table-responsive table-striped left">
-      <button class="btn btn-warning" id="checkout" type="submit">Place Order</button>
-    </form>
-  </div>
+<table class="table-responsive right">
+    <th class="info-head">Please fill out your shipping information</th>
+    <tr class="roww">
+        <td class="input"><input placeholder="Street 1" type="text"/></td>
+        <td class="input"><input placeholder="Street 2" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="City" type="text"/></td>
+        <td class="input"><input placeholder="State" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Zip Code" type="text"/></td>
+        <td class="input"><input placeholder="Phone" type="text"/></td>
+    </tr>
+
+</table>
+<table id="table-billing" class="table-responsive right">
+    <th class="info-head">Please fill out your billing information</th>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing Street 1" type="text"/></td>
+        <td class="input"><input placeholder="Billing Street 2" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing City" type="text"/></td>
+        <td class="input"><input placeholder="Billing State" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Billing Zip Code" type="text"/></td>
+        <td class="input"><input placeholder="Billing Phone" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Name on Card" type="text"/></td>
+        <td class="input"><input placeholder="Credit Card Number" type="text"/></td>
+    </tr>
+    <tr class="roww">
+        <td class="input"><input placeholder="Expiration Date" type="text"/></td>
+        <td class="input"><input placeholder="CVV Code" type="text"/></td>
+    </tr>
+</table>
+
+<table>
+
+
+</table>
+
 </%block>
 <%block name="line">
+<button id="checkout" method="POST" class="btn btn-warning">Place Order</button>
 </%block>

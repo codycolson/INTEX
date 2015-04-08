@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="${STATIC_URL}bower_components/flat-ui/dist/css/flat-ui.min.css"/>
     <script src="${STATIC_URL}chf/media/jquery.form.js"></script>
     <script src="${STATIC_URL}chf/media/jquery.loadmodal.js"></script>
+      <script src="http://listjs.com/no-cdn/list.js"></script>
   </head>
 
     ## render the css with the same name as this page
@@ -43,24 +44,36 @@
             <a href="account.create">Register</a>
         %endif
     </div>
-
-    <div id="middle">
-        <div class="center-menu">
+            <div class="center-menu">
             <ul class="list-inline">
               <li class="header-links"><a href="/items">Items</a></li>
               <li class="header-links"><a href="/products">Products</a></li>
               <li class="header-links"><a href="/events">Events</a></li>
-              <li class="header-links"><a href="/areas">Areas</a></li>
-              <li class="header-links"><a href="/users">Users</a></li>
-              <li class="header-links"><a href="/batch">Batch</a></li>
-              <li class="header-links"><a href="/report">Report</a></li>
+                %if request.user.is_staff:
+                <li class="header-links"><a href="/products.returnrental">Return</a></li>
+                <li class="header-links"><a href="/batch">Batch</a></li>
+                <li class="header-links"><a href="/report">Report</a></li>
+                %endif
+                %if request.user.is_superuser:
+                <li class="header-links"><a href="/report.accounting">Inventory</a></li>
+                <li class="header-links"><a href="/report.accounting">Accounting</a></li>
+                <li class="header-links"><a href="/users">Users</a></li>
+                %endif
                 %if request.user.is_authenticated():
-              <li class="header-links"><a href="/account.checkout">My Cart</a></li>
+                <li class="header-links" style="color:Black;"><a style="color:#D35400;font-weight:bold;" href="/account.checkout">My Cart</a></li>
                 %endif
             </ul>
         </div>
-            <%block name="title">
-            </%block>
+<%block name="breadcrumbs">
+
+        </%block>
+        <div class='side-bar'><%block name='side'></%block></div>
+
+    <div id="middle">
+
+
+        <%block name="title">
+        </%block>
         <div id = "main" class="container-fluid">
             <div class="row">
                     <%block name="content">
@@ -89,7 +102,7 @@
 
 
     <footer>
-        <div id = footer class="row-fluid">
+        <div id ="footer" class="row-fluid">
             <div class="spacer"></div>
             <span class="footer-links"><a href="/about">about</a></span>
             <span class="footer-links"><a href="/contact">contact</a></span>
@@ -98,7 +111,7 @@
         </div>
     </footer>
 
-    <div class="copyright"><span>Copyright 2015, Colson Enterprises</span></div>
+    <div class="copyright"><span>Copyright 2015, Team "Efficiency"</span></div>
     ## render the JS with the same name as this page
     ${ static_renderer.get_template_js(request, context)  }  
   </body>

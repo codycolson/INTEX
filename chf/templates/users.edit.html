@@ -1,16 +1,14 @@
-<%inherit file="base.htm" />
+<%inherit file="base_ajax.htm" />
 <%block name="content">
-    <h2 class="edit">Edit Users</h2>
-    <form method="POST">
-       <div class="table-responsive">
+    <div class="table-responsive">
+       <form id="user_edit_form" method="post" action="users.edit">
         <table>
             <tr>
             ${ form }
             </tr>
         </table>
-       </div>
-        <button type="submit" style="margin-right:30px; margin-bottom:30px; float:right;" class="btn btn-primary btn-lg">Save Changes</button>
+
+        <button id="login-button" class="btn btn-success" type="submit">Save Changes</button>
     </form>
-</%block>
-<%block name="line">
+        </div>
 </%block>

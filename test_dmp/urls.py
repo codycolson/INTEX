@@ -4,6 +4,8 @@ from django.contrib import admin
 urlpatterns = patterns('',
 	#url(r'', include('registration.backends.default.urls')),
 	url(r'', include('django.contrib.auth.urls')),
+    url(r'^login/$', 'django.contrib.auth.views.login',
+    {'template_name': 'login.html', 'extra_context': {'next':'/'}}),
 	#Password Reset URLs:
     url(r'^password_reset/$',
         'django.contrib.auth.views.password_reset',

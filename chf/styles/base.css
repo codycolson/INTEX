@@ -22,6 +22,9 @@
 #main{
     background: LightGray;
     margin-bottom:30px;
+    padding-right:0px;
+    padding-left:0px;
+
 }
 
 #middle{
@@ -40,8 +43,16 @@
 .center-menu{
     text-align: center;
     margin: 0 auto;
-    padding-bottom: 75px;
-    padding-top:50px;
+    padding-bottom: 5px;
+    padding-top:15px;
+    margin-bottom: 20px;
+    margin-top:8px;
+    border-top:solid;
+    border-top-width:1px;
+    border-bottom:solid;
+    border-bottom-width:1px;
+    border-top-color:#bac1c8;
+    border-bottom-color:#bac1c8;
 }
 
 footer{
@@ -57,6 +68,8 @@ footer{
     text-align: center;
     margin: 0 auto;
     color: LightGray;
+    margin-top:15px;
+    margin-bottom:50px;
     }
 
 #bottom{
@@ -88,7 +101,7 @@ table {
 }
 
 .right {
-    float:right;
+    text-align:right;
     margin-right:30px;
 }
 
@@ -103,3 +116,25 @@ table {
 #top-header {
     margin-top:0px;
 }
+
+.side-bar {
+    float:left;
+    width:20%;
+    margin-top:15px;
+}
+
+.category-list {
+    text-align:right;
+}
+
+.breadcrumb {
+    text-align:left;
+    padding-left:3%;
+    margin-left:9%;
+    margin-right:9%;
+}
+
+.text-left {
+    text-align:left;
+}
+

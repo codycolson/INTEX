@@ -21,16 +21,39 @@ def process_request(request):
 
     params = {}
 
-    if (request.urlparams[0]):
-        items = chfmod.ProductSpecification.objects.filter(name__icontains=request.urlparams[0])
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
+
+    if (request.urlparams[0] == 'search'):
+        items = chfmod.ProductSpecification.objects.filter(name__icontains=request.urlparams[1])
         params['items'] = items
+        params['search'] = request.urlparams[1]
         return templater.render_to_response(request, '/items.html', params)
 
+    if request.urlparams[0]:
+        items = chfmod.ProductSpecification.objects.filter(category=request.urlparams[0])
+        category = chfmod.Category.objects.get(id=request.urlparams[0])
+        subcategories = chfmod.SubCategory.objects.filter(category=request.urlparams[0])
+        params['items'] = items
+        params['cat'] = category
+        params['subcategories'] = subcategories
+
+        if request.urlparams[1]:
+            items = chfmod.ProductSpecification.objects.filter(subcategory=request.urlparams[1])
+            subcategory = chfmod.SubCategory.objects.get(id=request.urlparams[1])
+            params['items'] = items
+            params['sub'] = subcategory
+            print(params)
+            params['not_found'] = "We're sorry, the category you searched was not found. Please try another."
+            return templater.render_to_response(request, '/items.html', params)
+        return templater.render_to_response(request, '/items.html', params)
 
     items = chfmod.ProductSpecification.objects.all()
     params['items'] = items
 
-    print(items)
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
+
 
     return templater.render_to_response(request, '/items.html', params)
 

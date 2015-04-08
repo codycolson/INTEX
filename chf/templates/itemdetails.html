@@ -1,0 +1,113 @@
+<%inherit file="base.htm" />
+<%block name='title'>
+<p class="back"><a href="/report.accounting">< Back</a></p>
+<h2>Line Item Details</h2>
+</%block>
+<%block name="alt">
+%if item:
+<div class="item-details table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody>
+        <tr style="text-align:left">
+            <td>Product Name</td>
+            <td>${item.product.name}</td>
+        </tr><tr style="text-align:left">
+            <td>Price</td>
+            <td>${item.product.price}</td>
+        </tr><tr style="text-align:left">
+            <td>Quantity</td>
+            <td>${item.quantity}</td>
+        </tr><tr style="text-align:left">
+            <td>Description</td>
+            <td>${item.product.description}</td>
+        </tr><tr style="text-align:left">
+            <td>Manufacturer</td>
+            <td>${item.product.manufacturer}</td>
+        </tr><tr style="text-align:left">
+            <td>Average Cost</td>
+            <td>${item.product.average_cost}</td>
+        </tr><tr style="text-align:left">
+            <td>SKU</td>
+            <td>${item.product.sku}</td>
+        </tr><tr style="text-align:left">
+            <td>Order Form Name</td>
+            <td>${item.product.order_form_name or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Production Time</td>
+            <td>${item.product.production_time or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Category</td>
+            <td>${item.product.category}</td>
+        </tr><tr style="text-align:left">
+            <td>Owner</td>
+            <td>${item.product.owner or "CHF"}</td>
+        </tr><tr style="text-align:left">
+            <td>Photo File Name</td>
+            <td>${item.product.photo}</td>
+        </tr><tr style="text-align:left">
+            <td>Quantity on Hand</td>
+            <td>${item.product.quantity_on_hand}</td>
+        </tr><tr style="text-align:left">
+            <td>Shelf Location</td>
+            <td>${item.product.shelf_location or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Product Order File</td>
+            <td>${item.product.product_order_file or "-" }</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+%else:
+    <div class="item-details table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody>
+        <tr style="text-align:left">
+            <td>Product Name</td>
+            <td>${prod.rental_product.name}</td>
+        </tr><tr style="text-align:left">
+            <td>Price</td>
+            <td>${prod.rental_product.price}</td>
+        </tr><tr style="text-align:left">
+            <td>Quantity</td>
+            <td>${prod.quantity}</td>
+        </tr><tr style="text-align:left">
+            <td>Description</td>
+            <td>${prod.rental_product.description}</td>
+        </tr><tr style="text-align:left">
+            <td>Manufacturer</td>
+            <td>${prod.rental_product.manufacturer}</td>
+        </tr><tr style="text-align:left">
+            <td>Average Cost</td>
+            <td>${prod.rental_product.average_cost}</td>
+        </tr><tr style="text-align:left">
+            <td>SKU</td>
+            <td>${prod.rental_product.sku}</td>
+        </tr><tr style="text-align:left">
+            <td>Order Form Name</td>
+            <td>${prod.rental_product.order_form_name or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Production Time</td>
+            <td>${prod.rental_product.production_time or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Category</td>
+            <td>${prod.rental_product.category}</td>
+        </tr><tr style="text-align:left">
+            <td>Owner</td>
+            <td>${prod.rental_product.owner or "CHF"}</td>
+        </tr><tr style="text-align:left">
+            <td>Photo File Name</td>
+            <td>${prod.rental_product.photo}</td>
+        </tr><tr style="text-align:left">
+            <td>Quantity on Hand</td>
+            <td>${prod.rental_product.quantity_on_hand}</td>
+        </tr><tr style="text-align:left">
+            <td>Shelf Location</td>
+            <td>${prod.rental_product.shelf_location or "-"}</td>
+        </tr><tr style="text-align:left">
+            <td>Product Order File</td>
+            <td>${prod.rental_product.product_order_file or "-" }</td>
+        </tbody>
+    </table>
+</div>
+%endif
+</%block>

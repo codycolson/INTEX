@@ -20,8 +20,38 @@ def process_request(request):
 
     params = {}
 
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
+
+    if (request.urlparams[0] == 'search'):
+        products = chfmod.RentalProduct.objects.filter(name__icontains=request.urlparams[1])
+        params['products'] = products
+        params['search'] = request.urlparams[1]
+        return templater.render_to_response(request, '/products.html', params)
+
+    if request.urlparams[0]:
+        products = chfmod.RentalProduct.objects.filter(category=request.urlparams[0])
+        category = chfmod.Category.objects.get(id=request.urlparams[0])
+        subcategories = chfmod.SubCategory.objects.filter(category=request.urlparams[0])
+        params['products'] = products
+        params['cat'] = category
+        params['subcategories'] = subcategories
+
+        if request.urlparams[1]:
+            products = chfmod.RentalProduct.objects.filter(subcategory=request.urlparams[1])
+            subcategory = chfmod.SubCategory.objects.get(id=request.urlparams[1])
+            params['products'] = products
+            params['sub'] = subcategory
+            print(params)
+            params['not_found'] = "We're sorry, the category you searched was not found. Please try another."
+            return templater.render_to_response(request, '/products.html', params)
+        return templater.render_to_response(request, '/products.html', params)
+
     products = chfmod.RentalProduct.objects.all()
     params['products'] = products
+
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
 
     return templater.render_to_response(request, '/products.html', params)
 
@@ -114,8 +144,38 @@ def returnrental(request):
 
     params = {}
 
-    products = chfmod.RentalItem.objects.filter(date_in=None)
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
+
+    if (request.urlparams[0] == 'search'):
+        products = chfmod.RentalItem.objects.filter(name__icontains=request.urlparams[1]).filter(date_in=None)
+        params['products'] = products
+        params['search'] = request.urlparams[1]
+        return templater.render_to_response(request, '/rentalreturn.html', params)
+
+    if request.urlparams[0]:
+        products = chfmod.RentalItem.objects.filter(category=request.urlparams[0]).filter(date_in=None)
+        category = chfmod.Category.objects.get(id=request.urlparams[0])
+        subcategories = chfmod.SubCategory.objects.filter(category=request.urlparams[0])
+        params['products'] = products
+        params['cat'] = category
+        params['subcategories'] = subcategories
+
+        if request.urlparams[1]:
+            products = chfmod.RentalItem.objects.filter(subcategory=request.urlparams[1]).filter(date_in=None)
+            subcategory = chfmod.SubCategory.objects.get(id=request.urlparams[1])
+            params['products'] = products
+            params['sub'] = subcategory
+            print(params)
+            params['not_found'] = "We're sorry, the category you searched was not found. Please try another."
+            return templater.render_to_response(request, '/rentalreturn.html', params)
+        return templater.render_to_response(request, '/rentalreturn.html', params)
+
+    products = chfmod.RentalItem.objects.all().filter(date_in=None)
     params['products'] = products
+
+    categories = chfmod.Category.objects.all()
+    params['categories'] = categories
 
     return templater.render_to_response(request, '/products.rentalreturn.html', params)
 

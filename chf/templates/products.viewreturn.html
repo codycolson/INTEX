@@ -6,11 +6,12 @@
     <div class="info">
         <h4>${ item.rental_product.name }</h4>
         <div class="price">Price per day $${item.rental_product.price_per_day}</div>
+        <div class="description"><b>Rented by:</b> ${item.transaction.customer.first_name} ${item.transaction.customer.last_name}</div>
         <div class="description"><b>Date Rented:</b> ${item.date_out.strftime('%B %d, %Y')}</div>
         <div class="description"><b>Date Due:</b> ${item.date_due.strftime('%B %d, %Y')}</div>
         <div class="description">Damage notes: </br><textarea rows="4" cols="50">${item.rental_product.notes}</textarea></div>
         <div class="description">Damage fee: <input rows="4" cols="50"/></div>
-        <div class="description"><a href="/products.processreturn/${ item.id }" class="btn btn-warning">Return this Item</a></div>
+        <div style="float:right;margin-right:70px;"><a href="/products.processreturn/${ item.id }" class="btn btn-warning">Return this Item</a></div>
     </div>
 
 

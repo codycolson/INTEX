@@ -32,19 +32,20 @@ address2.zip_code = '84606'
 address2.save()
 
 user = chfmod.User()
-user.first_name = 'Admin'
-user.last_name = 'Colson'
-user.username = 'ccolson'
+user.first_name = 'Homer'
+user.last_name = 'Simpson'
+user.username = 'homer'
 user.email = 'codymcolson@gmail.com'
 user.set_password('password')
 user.is_superuser = True
+user.is_staff = True
 user.save()
 print('User Cody Created')
 
 user1 = chfmod.User()
-user1.first_name = 'Manager'
-user1.last_name = 'Wight'
-user1.username = 'blake'
+user1.first_name = 'Bart'
+user1.last_name = 'Simpson'
+user1.username = 'bart'
 user1.email = 'mrcolson12@gmail.com'
 user1.set_password('password')
 user1.is_staff = True
@@ -52,33 +53,49 @@ user1.save()
 print('User Blake Created')
 
 user2 = chfmod.User()
-user2.first_name = 'Plain User'
-user2.last_name = 'Wise'
-user2.username = 'jwise'
+user2.first_name = 'Marge'
+user2.last_name = 'Simpson'
+user2.username = 'marge'
 user2.email = 'cody.colson@mozenda.com'
 user2.set_password('password')
 user2.save()
 print('User Jordan Created')
 
-cat = chfmod.Category()
-cat.name = "Hats"
-cat.save()
+cat1 = chfmod.Category()
+cat1.name = 'Weapons'
+cat1.save()
 
-cat = chfmod.Category()
-cat.name = "Pants"
-cat.save()
+cat2 = chfmod.Category()
+cat2.name = 'Decoration'
+cat2.save()
 
-cat = chfmod.Category()
-cat.name = "Shirts"
-cat.save()
+cat3 = chfmod.Category()
+cat3.name = 'Clothing'
+cat3.save()
 
-cat = chfmod.Category()
-cat.name = "Uniforms"
-cat.save()
+cat4 = chfmod.Category()
+cat4.name = 'Custom Orders'
+cat4.save()
 
-cat = chfmod.Category()
-cat.name = "Guns"
-cat.save()
+subcat1 = chfmod.SubCategory()
+subcat1.name = "Hats"
+subcat1.category = cat3
+subcat1.save()
+
+subcat2 = chfmod.SubCategory()
+subcat2.name = "Pants"
+subcat2.category = cat3
+subcat2.save()
+
+subcat3 = chfmod.SubCategory()
+subcat3.name = "Shirts"
+subcat3.category = cat3
+subcat3.save()
+
+subcat4 = chfmod.SubCategory()
+subcat4.name = "Uniforms"
+subcat4.category = cat3
+subcat4.save()
 
 photo = chfmod.Photograph()
 photo.image = "chf/media/oldhat.jpg"
@@ -106,7 +123,8 @@ prod1.description = "Do you see how nice it is?"
 prod1.manufacturer = "CHF"
 prod1.average_cost = 20
 prod1.price = 30
-prod1.category = chfmod.Category.objects.get(id=1)
+prod1.category = cat3
+prod1.subcategory = subcat1
 prod1.sku = 1234567890
 prod1.photo = chfmod.Photograph.objects.get(id=1)
 prod1.quantity_on_hand = 5
@@ -122,7 +140,8 @@ prod2.description = "You do not want these pants."
 prod2.manufacturer = "CHF"
 prod2.average_cost = 50
 prod2.price = 70
-prod2.category = chfmod.Category.objects.get(id=2)
+prod2.category = cat3
+prod2.subcategory = subcat2
 prod2.sku = 123456789
 prod2.photo = chfmod.Photograph.objects.get(id=2)
 prod2.quantity_on_hand = 1
@@ -132,67 +151,57 @@ prod2.times_rented = 4
 prod2.price_per_day = 5
 prod2.save()
 
-prod = chfmod.ProductSpecification()
-prod.name = "Uniform that was actually worn"
-prod.description = "It hasn't been washed."
-prod.manufacturer = "CHF"
-prod.average_cost = 50
-prod.price = 120
-prod.category = chfmod.Category.objects.get(id=4)
-prod.sku = 12345678
-prod.photo = chfmod.Photograph.objects.get(id=3)
-prod.quantity_on_hand = 1
-prod.save()
+prod3 = chfmod.ProductSpecification()
+prod3.name = "Uniform that was actually worn"
+prod3.description = "It hasn't been washed."
+prod3.manufacturer = "CHF"
+prod3.average_cost = 50
+prod3.price = 120
+prod3.category = cat3
+prod3.subcategory = subcat4
+prod3.sku = 12345678
+prod3.photo = chfmod.Photograph.objects.get(id=3)
+prod3.quantity_on_hand = 1
+prod3.save()
 
-prod = chfmod.ProductSpecification()
-prod.name = "Blue uniform"
-prod.description = "Very handsome"
-prod.manufacturer = "CHF"
-prod.average_cost = 50
-prod.price = 150
-prod.category = chfmod.Category.objects.get(id=4)
-prod.sku = 1234567
-prod.photo = chfmod.Photograph.objects.get(id=4)
-prod.quantity_on_hand = 1
-prod.save()
+prod4 = chfmod.ProductSpecification()
+prod4.name = "Blue uniform"
+prod4.description = "Very handsome"
+prod4.manufacturer = "CHF"
+prod4.average_cost = 50
+prod4.price = 150
+prod4.category = cat3
+prod4.subcategory = subcat4
+prod4.sku = 1234567
+prod4.photo = chfmod.Photograph.objects.get(id=4)
+prod4.quantity_on_hand = 1
+prod4.save()
 
-prod = chfmod.ProductSpecification()
-prod.name = "Rifle"
-prod.description = "This is a dangerous gun. Do not fire."
-prod.manufacturer = "Smith & Wesson"
-prod.average_cost = 200
-prod.price = 499
-prod.category = chfmod.Category.objects.get(id=5)
-prod.sku = 123456
-prod.photo = chfmod.Photograph.objects.get(id=5)
-prod.quantity_on_hand = 5
-prod.save()
+prod5 = chfmod.ProductSpecification()
+prod5.name = "Rifle"
+prod5.description = "This is a dangerous gun. Do not fire."
+prod5.manufacturer = "Smith & Wesson"
+prod5.average_cost = 200
+prod5.price = 499
+prod5.category = cat1
+prod5.sku = 123456
+prod5.photo = chfmod.Photograph.objects.get(id=5)
+prod5.quantity_on_hand = 5
+prod5.save()
 
 photo3 = chfmod.Photograph()
 photo3.image = 'item/media/printing_press.jpg'
 photo3.save()
 
-cat1 = chfmod.Category()
-cat1.name = 'Weapons'
-cat1.save()
-
-cat2 = chfmod.Category()
-cat2.name = 'Decoration'
-cat2.save()
-
-cat3 = chfmod.Category()
-cat3.name = 'Clothing'
-cat3.save()
-
 p1 = chfmod.ProductSpecification()
-p1.name = 'Pistolette'
+p1.name = 'Comfy Boots'
 p1.price = 1000.00
-p1.description = 'this is going to be a really long bit of text to see what my stupid wells look like when text wraps. Pretty stupid, I agree, but I was just curious to see what happens.'
+p1.description = 'These are easily the best boots you will ever wear.'
 p1.manufacturer = 'Smith & Wesson'
-p1.category = chfmod.Category.objects.get(name='Weapons')
+p1.category = chfmod.Category.objects.get(name='Clothing')
 p1.sku = 123456789
 p1.average_cost = 1000.00
-p1.photo = chfmod.Photograph.objects.create(image="chf/media/pistol.jpg")
+p1.photo = chfmod.Photograph.objects.create(image="chf/media/boots.jpg")
 print('image #1:' + p1.photo.image)
 p1.quantity_on_hand = 5
 p1.shelf_location = 'somehwere'
@@ -211,6 +220,21 @@ print('image #2:' + p2.photo.image)
 p2.quantity_on_hand = 1
 p2.shelf_location = 'somehwere'
 p2.save()
+
+p3 = chfmod.ProductSpecification()
+p3.name = 'Custom Basket'
+p3.price = 80.00
+p3.description = 'This is a homeade basket made for you by a professional basketweaver.'
+p3.manufacturer = 'Basketweaver'
+p3.category = chfmod.Category.objects.get(name='Custom Orders')
+p3.sku = 123456789
+p3.average_cost = 80.00
+p3.photo = chfmod.Photograph.objects.create(image="chf/media/basket.jpg")
+print('image #1:' + p1.photo.image)
+p3.quantity_on_hand = 5
+p3.shelf_location = 'somehwere'
+p3.order_form_name = 'chf/media/basket_order.pdf'
+p3.save()
 
 # prod = chfmod.RentalProduct()
 # prod.name = "the thing"
@@ -258,7 +282,7 @@ eventItem.name = 'Cow milking bucket'
 eventItem.description = "It's a bucket for milking cows, keep it forever as a memory to this epic day when you milked a cow with your bare hands."
 eventItem.low_price = 2.00
 eventItem.high_price = 10.00
-eventItem.photo = ''
+eventItem.photo = chfmod.Photograph.objects.create(image="chf/media/bucket.jpg")
 eventItem.event = chfmod.Event.objects.get(id = event.id)
 eventItem.save()
 
@@ -267,7 +291,7 @@ eventItem.name = 'Horseshoe'
 eventItem.description = "Buy some metal and forge your own shoe."
 eventItem.low_price = 12.00
 eventItem.high_price = 25.00
-eventItem.photo = ''
+eventItem.photo = chfmod.Photograph.objects.create(image="chf/media/shoe.png")
 eventItem.event = chfmod.Event.objects.get(id = event.id)
 eventItem.save()
 
@@ -276,45 +300,49 @@ eventItem.name = 'Basket'
 eventItem.description = "Get a basket made for you and your family. Customizable."
 eventItem.low_price = 30.00
 eventItem.high_price = 50.00
-eventItem.photo = ''
+eventItem.photo = chfmod.Photograph.objects.get(image="chf/media/basket.jpg")
 eventItem.event = chfmod.Event.objects.get(id = event.id)
 eventItem.save()
 
 rental = chfmod.RentalProduct()
-rental.name = 'Colonial Jacket thing'
-rental.price = 500.00
-rental.description = 'A jacket that people from a long time ago would wear around all of the time.'
+rental.name = "Martha Washington's dress"
+rental.price = 50000.00
+rental.description = "Martha's actual dress. Handle with great care."
 rental.manufacturer = 'Colonial Outerwear'
-rental.average_cost = 350.00
+rental.average_cost = 35000.00
 rental.sku = '23gK85hQT56'
-rental.order_form_name = 'Colonial Custom Jacket Order Form'
-rental.production_time = 'Takes like 1 month to make'
-rental.category = chfmod.Category.objects.get(id=2)
+rental.order_form_name = ''
+rental.production_time = ''
+rental.category = cat3
+rental.subcategory = subcat3
 rental.shelf_location = 'in the back'
-rental.product_order_file = 'blah blah blah'
+rental.product_order_file = ''
+rental.photo = chfmod.Photograph.objects.create(image="chf/media/dress.jpg")
 rental.serial_number = 'asdpfi136137qef'
 rental.date_acquired = '2014-03-07'
 rental.cost = rental.average_cost
-rental.notes = 'this thing is a good thing'
-rental.price_per_day = 5.00
+rental.notes = 'Pristine condition. Selective rentals only.'
+rental.price_per_day = 250.00
 rental.save()
 
 rental2 = chfmod.RentalProduct()
-rental2.name = 'Colonial Musket'
+rental2.name = 'Green Dress'
 rental2.price = 1500.00
-rental2.description = 'muzzle loader in the style of a colonial musket'
+rental2.description = "It's an old timey dress"
 rental2.manufacturer = 'Colonial Collectables'
 rental2.average_cost = 1500.00
 rental2.sku = '23gK85hQT56-67rpV'
-rental2.order_form_name = 'Musket Order Form'
+rental2.order_form_name = ''
 rental2.production_time = '2.5 months on average'
-rental2.category = chfmod.Category.objects.get(id=1)
+rental2.category = cat3
+rental2.subcategory = subcat3
 rental2.shelf_location = 'In the locker'
-rental2.product_order_file = 'blah blah blah'
+rental2.product_order_file = ''
+rental2.photo = chfmod.Photograph.objects.create(image="chf/media/dress_green.jpg")
 rental2.serial_number = 'g1645Frif6137qef'
 rental2.date_acquired = '2014-09-07'
 rental2.cost = rental.average_cost
-rental2.notes = 'can hit the broad side of a barn at 100 yards!'
+rental2.notes = 'Slight rip along seam. Good condition.'
 rental2.price_per_day = 20.00
 rental2.save()
 
@@ -392,5 +420,36 @@ rent.transaction = transaction
 rent.save()
 rent.date_out = '2015-02-03 00:00:00'
 rent.save()
+
+transaction.save()
+
+transaction = chfmod.Transaction()
+transaction.order_date = '2015-03-05 00:00:00'
+transaction.customer = user2
+transaction.save()
+
+item = chfmod.SaleItem()
+item.quantity = 4
+item.product = prod3
+item.transaction = transaction
+item.save()
+
+item = chfmod.SaleItem()
+item.quantity = 1
+item.product = prod4
+item.transaction = transaction
+item.save()
+
+item = chfmod.SaleItem()
+item.quantity = 10
+item.product = prod5
+item.transaction = transaction
+item.save()
+
+item = chfmod.SaleItem()
+item.quantity = 1
+item.product = p1
+item.transaction = transaction
+item.save()
 
 transaction.save()

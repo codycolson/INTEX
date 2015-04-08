@@ -1,7 +1,13 @@
 $(function() {
 
-  $('form').ajaxForm(function(data) {
-      $('.formHere').html(data);
-  });
 
-})
+    $("#checkout").on('click', function() {
+
+        $.loadmodal({
+        url: '/account.confirmation',
+        title: 'Congrats!',
+        height: '780px',
+        });
+
+    });//click
+});//ready

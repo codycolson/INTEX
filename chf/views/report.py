@@ -52,3 +52,35 @@ def send(request):
         send_mail('Notice of Overdue Items', emailbody, settings.EMAIL_HOST_USER, [email],html_message=emailbody, fail_silently=False)
 
     return HttpResponseRedirect('/')
+
+@view_function
+def accounting(request):
+
+    params = {}
+
+    itemtrans = chfmod.SaleItem.objects.all()
+    prodtrans = chfmod.RentalItem.objects.all()
+
+    params['itemtrans'] = itemtrans
+    params['prodtrans'] = prodtrans
+
+    return templater.render_to_response(request, 'accounting.html', params)
+
+@view_function
+def itemdetails(request):
+
+    params = {}
+
+    item = chfmod.SaleItem.objects.get(id=request.urlparams[0])
+
+
+    #prod = chfmod.RentalItem.object.get(id=request.params[0])
+    #HttpResponseRedirect('report.accounting')
+
+
+
+    params['item'] = item
+    #params['prod'] = prod
+    print(item)
+
+    return templater.render_to_response(request, 'itemdetails.html', params)

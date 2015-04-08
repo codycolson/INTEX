@@ -16,18 +16,16 @@ from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime, timedelta
-import requests
 
 templater = get_renderer('chf')
 
 @view_function
-@login_required
-def edit2(request):
+def changepassword(request):
 
     params = {}
 
 
-    return templater.render_to_response(request, '/account.edit.html', params)
+    return templater.render_to_response(request, '/account.changepassword.html', params)
 
 ###############################################################
 
@@ -283,6 +281,7 @@ def shoppingcart(request):
 
     if request.urlparams[0] in request.session['shopping_cart'].keys():
         request.session['shopping_cart'][request.urlparams[0]] = int(request.session['shopping_cart'][request.urlparams[0]]) + int(request.urlparams[1])
+
     else:
         request.session['shopping_cart'][request.urlparams[0]] = int(request.urlparams[1])
 
@@ -322,68 +321,72 @@ def checkout(request):
 
     if request.session['shopping_cart'] or request.session['rental_cart']:
 
-        rental_keys = request.session['rental_cart'].keys()
-        rentals = chfmod.ProductSpecification.objects.filter(id__in=rental_keys)
+        keys = request.session['shopping_cart'].keys()
+        item = chfmod.ProductSpecification.objects.filter(id__in=keys)
 
-        shop_keys = request.session['shopping_cart'].keys()
-        items = chfmod.ProductSpecification.objects.filter(id__in=shop_keys).exclude(id__in=rentals)
+        keys = request.session['rental_cart'].keys()
+        rental = chfmod.ProductSpecification.objects.filter(id__in=keys)
 
-        form = TransactionForm()
-
-        if form.is_valid():
-
-            params['items'] = item
-            params['rentals'] = rentals
-
-            transaction = chfmod.Transaction()
-            for item in items:
-                transaction.add_item(item)
-
-            emailbody = templater.render(request, 'checkout_email.html',params)
-
-            email = request.user.email
-            send_mail('Confirmation of Your Order #' +resp['ID'], emailbody, settings.EMAIL_HOST_USER, [email],html_message=emailbody, fail_silently=False)
-
-            del request.session['shopping_cart']
-            del request.session['rental_cart']
-            HttpResponseRedirect(request, 'purchase_summary.html', params)
+        params['items'] = item
+        params['rentals'] = rental
 
         return templater.render_to_response(request, '/account.checkout.html', params)
 
     else:
         return HttpResponseRedirect('items')
 
-class TransactionForm(forms.Form):
-    billing_street = forms.CharField(required = False)
-    billing_city = forms.CharField(required = False)
-    billing_state= forms.CharField(required = False, max_length =2)
-    billing_zip = forms.CharField(required = False)
-    billing_phone = forms.CharField(required = False)
 
-    def clean(self):
-        print('In Clean Method<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-        API_URL = 'http://dithers.cs.byu.edu/iscore/api/v1/charges'
-        API_KEY = 'b6a57a6b718b756064393dd12588130d'
+@view_function
+def confirmation(request):
 
-        r = requests.post(API_URL, data={
-            'apiKey' : API_KEY,
-            'currency': 'usd',
-            'amount': '5.99',
-            'type': 'Visa',
-            'number': '4732817300654',
-            'exp_month': '10',
-            'exp_year': '15',
-            'cvc': '411',
-            'name': 'Cosmo Limesandal',
-            'description': 'Charge for nothing at all!!!',
-        })
+    params = {}
+    keys = request.session['shopping_cart'].keys()
+    item = chfmod.ProductSpecification.objects.filter(id__in=keys)
 
-        print(r)
+    params['items'] = item
 
-        resp = r.json()
-        if 'error' in resp:
-            print(resp['error'])
-            return False
 
-        else:
-            return True
+    if request.method=='POST':
+
+        return HttpResponse('''
+                <script>
+                window.location.href = window.location.href;
+                </script>
+            ''')
+
+    import requests
+
+    API_URL = 'http://dithers.cs.byu.edu/iscore/api/v1/charges'
+    API_KEY = 'b6a57a6b718b756064393dd12588130d'
+
+    r = requests.post(API_URL, data={
+        'apiKey' : API_KEY,
+        'currency': 'usd',
+        'amount': '5.99',
+        'type': 'Visa',
+        'number': '4732817300654',
+        'exp_month': '10',
+        'exp_year': '15',
+        'cvc': '411',
+        'name': 'Cosmo Limesandal',
+        'description': 'Charge for nothing at all!!!',
+    })
+
+    print(r)
+
+    resp = r.json()
+    if 'error' in resp:
+        print(resp['error'])
+
+    else:
+        print(resp['ID'])
+
+    emailbody = templater.render(request, 'checkout_email.html',params)
+
+    email = request.user.email
+    send_mail('Confirmation of Your Order #' +resp['ID'], emailbody, settings.EMAIL_HOST_USER, [email],html_message=emailbody, fail_silently=False)
+
+
+    del request.session['shopping_cart']
+    del request.session['rental_cart']
+    return templater.render_to_response(request, 'account.confirmation.html', params)

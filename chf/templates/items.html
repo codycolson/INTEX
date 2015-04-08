@@ -1,14 +1,50 @@
 <%inherit file="base.htm" />
-<%block name="content">
-<div class="search1">
-    <input id="search" placeholder="search"/>
-    <a id="searchbox" class="btn btn-primary">search</a>
+<%block name='side'>
+<div class="left-box"></div>
+<div class="right-box"></div>
+<div class="center-box">
+    <div class="category-list">Categories:</div>
+    %for c in categories:
+        <div class="category-link"><a href="/items/${ c.id }">${c.name}</a></div>
+    %endfor
+    %if subcategories:
+        <div class="subcategory-list">Filter:</div>
+        %for s in subcategories:
+        <div class="category-link"><a href="/items/3/${ s.id }">${s.name}</a></div>
+        %endfor
+    %endif
+    <div id="input-box" class="input-group input-group-hg input-group-rounded">
+      <span class="input-group-btn">
+        <a id="searchbox" class="btn"><span class="fui-search"></span></a>
+      </span>
+        %if search:
+        <input type="text" class="form-control" value="${search}" placeholder="Search" id="search">
+        %else:
+        <input type="text" class="form-control" placeholder="Search" id="search">
+        %endif
+    </div>
 </div>
+</%block>
+<%block name="breadcrumbs">
+<div>
+<ol class="breadcrumb">
+    <li><a href="/items">Items</a></li>
+    %if cat:
+        <li><a href="/items/${cat.id}">${cat.name}</a></li>
+    %endif
+    %if sub:
+        <li><a href="/items/${sub.id}">${sub.name}</a></li>
+    %endif
+</ol>
+    </div>
+</%block>
+<%block name="content">
+
     %for productspecification in items:
 
     <div class="grid-container">
         <div class="item_container">
-            <a href="items.view/${productspecification.id}"><img src="${STATIC_URL}${ productspecification.photo }"/></a>
+            <a href="/items.view/${productspecification.id}"><img src="${STATIC_URL}${ productspecification.photo }"/></a>
             <div>${productspecification.name}</div>
             <div>$${productspecification.price}</div>
         </div>
