@@ -1,9 +1,14 @@
+<%inherit file="base.htm" />
+<%block name='title'>
+</%block>
+<%block name="alt">
 <h4>Thank you for your purchase!</h4>
-</br>
-</br>
 
+</%block>
 %for item in items:
 
+
+<%block name="line">
 <div class="grid-container">
     <div class="item_container">
         <div>${item.name}</div>
@@ -11,5 +16,4 @@
     </div>
 </div>
 %endfor
-
-<p>If you have any questions or concerns about your items, please contact our support team at support@colonialheritagefoundation.com</p>
+</%block>

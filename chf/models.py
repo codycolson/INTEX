@@ -77,8 +77,8 @@ class ExpectedSaleItem(models.Model):
     event = models.ForeignKey(Event, related_name='+')
 
 class Transaction(models.Model):
-    order_date = models.DateTimeField()
-    phone = models.TextField()
+    order_date = models.DateTimeField(auto_now_add=True)
+    phone = models.TextField(null=True)
     date_packed = models.DateTimeField(null=True)
     date_shipped = models.DateTimeField(null=True)
     tracking_number = models.FloatField(null=True)
