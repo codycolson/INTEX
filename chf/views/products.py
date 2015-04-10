@@ -64,7 +64,7 @@ def edit(request):
     params = {}
 
     try:
-        product = chfmod.Product.objects.get(id=request.urlparams[0])
+        product = chfmod.RentalProduct.objects.get(id=request.urlparams[0])
     except:
         return HttpResponseRedirect('/products')
 

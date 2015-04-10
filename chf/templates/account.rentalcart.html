@@ -26,7 +26,11 @@ ${nowww = noww - timedelta(days=3)}
 <table id="button-table" class="table-responsive">
     <tr>
         <td id="space"></td>
+        %if request.user.is_authenticated():
         <td id='checkout'><a href="/account.checkout" class="btn btn-warning">Checkout</a></td>
+        %else:
+        <td id='checkout'><a href="/mylogin.cartlogin" class="btn btn-warning">Checkout</a></td>
+        %endif
     </tr>
 </table>
 </%block>

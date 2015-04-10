@@ -1,0 +1,44 @@
+
+#main {
+    background-color: White;
+}
+
+.main_photo {
+    height:411px;
+    width:276px;
+    float:left;
+    margin-top:15px;
+}
+
+.edit {
+    text-align:left;
+}
+
+.info {
+    margin-left:550px;
+    text-align:left;
+    height:500px;
+}
+
+.photo {
+    height:500px;
+    width:275px;
+    float:left;
+    margin-left:175px;
+}
+
+.description {
+    margin-top:50px;
+    margin-bottom:21px;
+}
+
+#select {
+    margin-right:50px;
+    height:40px;
+}
+
+#duedate {
+    margin-right:50px;
+    height:40px;
+}
+

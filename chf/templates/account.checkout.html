@@ -1,6 +1,9 @@
 <%inherit file="base.htm" />
 <%block name="content">
 <h3 class="head">Confirm Your Order</h3>
+%if request.user.is_staff:
+    <div>${form}</div>
+%endif:
 %if request.session['shopping_cart']:
 <div class="col-md-6" style="margin-top:30px;"><h4>Shopping Cart</h4>
 <table class="table-responsive table-striped left">
@@ -37,6 +40,7 @@
 </table>
 </div>
 %endif
+
 <table class="table-responsive right">
     <th class="info-head">Please fill out your shipping information</th>
     <tr class="roww">
@@ -53,6 +57,7 @@
     </tr>
 
 </table>
+
 <table id="table-billing" class="table-responsive right">
     <th class="info-head">Please fill out your billing information</th>
     <tr class="roww">

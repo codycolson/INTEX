@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1428482119.549203
+_modified_time = 1428560022.452081
 _enable_loop = True
 _template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/items.html'
 _template_uri = '/items.html'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['content', 'breadcrumbs', 'side']
+_exports = ['content', 'side', 'breadcrumbs']
 
 
 def _mako_get_namespace(context, name):
@@ -28,19 +28,20 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        categories = context.get('categories', UNDEFINED)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         cat = context.get('cat', UNDEFINED)
-        def content():
-            return render_content(context._locals(__M_locals))
         def breadcrumbs():
             return render_breadcrumbs(context._locals(__M_locals))
+        items = context.get('items', UNDEFINED)
+        search = context.get('search', UNDEFINED)
+        def content():
+            return render_content(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        subcategories = context.get('subcategories', UNDEFINED)
+        categories = context.get('categories', UNDEFINED)
+        request = context.get('request', UNDEFINED)
         def side():
             return render_side(context._locals(__M_locals))
-        subcategories = context.get('subcategories', UNDEFINED)
-        search = context.get('search', UNDEFINED)
         sub = context.get('sub', UNDEFINED)
-        items = context.get('items', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'side'):
@@ -88,41 +89,14 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_breadcrumbs(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        sub = context.get('sub', UNDEFINED)
-        def breadcrumbs():
-            return render_breadcrumbs(context)
-        cat = context.get('cat', UNDEFINED)
-        __M_writer = context.writer()
-        __M_writer('\r\n<div>\r\n<ol class="breadcrumb">\r\n    <li><a href="/items">Items</a></li>\r\n')
-        if cat:
-            __M_writer('        <li><a href="/items/')
-            __M_writer(str(cat.id))
-            __M_writer('">')
-            __M_writer(str(cat.name))
-            __M_writer('</a></li>\r\n')
-        if sub:
-            __M_writer('        <li><a href="/items/')
-            __M_writer(str(sub.id))
-            __M_writer('">')
-            __M_writer(str(sub.name))
-            __M_writer('</a></li>\r\n')
-        __M_writer('</ol>\r\n    </div>\r\n')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_side(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         subcategories = context.get('subcategories', UNDEFINED)
-        categories = context.get('categories', UNDEFINED)
+        search = context.get('search', UNDEFINED)
         def side():
             return render_side(context)
-        search = context.get('search', UNDEFINED)
+        categories = context.get('categories', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n<div class="left-box"></div>\r\n<div class="right-box"></div>\r\n<div class="center-box">\r\n    <div class="category-list">Categories:</div>\r\n')
         for c in categories:
@@ -152,8 +126,38 @@ def render_side(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_breadcrumbs(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        cat = context.get('cat', UNDEFINED)
+        def breadcrumbs():
+            return render_breadcrumbs(context)
+        sub = context.get('sub', UNDEFINED)
+        request = context.get('request', UNDEFINED)
+        __M_writer = context.writer()
+        __M_writer('\r\n<div>\r\n<ol class="breadcrumb">\r\n    <li><a href="/items">Items</a></li>\r\n')
+        if cat:
+            __M_writer('        <li><a href="/items/')
+            __M_writer(str(cat.id))
+            __M_writer('">')
+            __M_writer(str(cat.name))
+            __M_writer('</a></li>\r\n')
+        if sub:
+            __M_writer('        <li><a href="/items/')
+            __M_writer(str(sub.id))
+            __M_writer('">')
+            __M_writer(str(sub.name))
+            __M_writer('</a></li>\r\n')
+        if request.user.is_superuser:
+            __M_writer('        <p style="float:right"><a href="/items.create">Create New</a></p>\r\n')
+        __M_writer('</ol>\r\n    </div>\r\n')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 """
 __M_BEGIN_METADATA
-{"source_encoding": "ascii", "line_map": {"128": 7, "129": 8, "130": 8, "131": 8, "132": 8, "133": 8, "134": 10, "135": 11, "136": 12, "137": 13, "138": 13, "139": 13, "140": 13, "141": 13, "142": 16, "143": 20, "144": 21, "145": 21, "146": 21, "147": 22, "148": 23, "149": 25, "27": 0, "155": 149, "45": 1, "50": 27, "55": 40, "60": 53, "66": 41, "74": 41, "75": 43, "76": 44, "77": 47, "78": 47, "79": 47, "80": 47, "81": 47, "82": 48, "83": 48, "84": 49, "85": 49, "91": 28, "99": 28, "100": 32, "101": 33, "102": 33, "103": 33, "104": 33, "105": 33, "106": 35, "107": 36, "108": 36, "109": 36, "110": 36, "111": 36, "112": 38, "118": 2, "127": 2}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/items.html", "uri": "/items.html"}
+{"line_map": {"129": 28, "138": 28, "139": 32, "140": 33, "141": 33, "142": 33, "143": 33, "144": 33, "145": 35, "146": 36, "147": 36, "148": 36, "149": 36, "150": 36, "151": 38, "152": 39, "153": 41, "27": 0, "159": 153, "46": 1, "51": 27, "56": 43, "61": 56, "67": 44, "75": 44, "76": 46, "77": 47, "78": 50, "79": 50, "80": 50, "81": 50, "82": 50, "83": 51, "84": 51, "85": 52, "86": 52, "92": 2, "101": 2, "102": 7, "103": 8, "104": 8, "105": 8, "106": 8, "107": 8, "108": 10, "109": 11, "110": 12, "111": 13, "112": 13, "113": 13, "114": 13, "115": 13, "116": 16, "117": 20, "118": 21, "119": 21, "120": 21, "121": 22, "122": 23, "123": 25}, "source_encoding": "ascii", "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/items.html", "uri": "/items.html"}
 __M_END_METADATA
 """

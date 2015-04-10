@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1425783902.92321
+_modified_time = 1428552249.338396
 _enable_loop = True
-_template_filename = 'C:\\Users\\Cody\\Desktop\\chf\\chf\\templates/index.html'
+_template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/index.html'
 _template_uri = 'index.html'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['content']
+_exports = ['alt']
 
 
 def _mako_get_namespace(context, name):
@@ -28,12 +28,13 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def content():
-            return render_content(context._locals(__M_locals))
+        def alt():
+            return render_alt(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
-        if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
-            context['self'].content(**pageargs)
+        if 'parent' not in context._data or not hasattr(context._data['parent'], 'alt'):
+            context['self'].alt(**pageargs)
         
 
         return ''
@@ -41,13 +42,16 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_content(context,**pageargs):
+def render_alt(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def content():
-            return render_content(context)
+        def alt():
+            return render_alt(context)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
-        __M_writer('\r\n<h4>Click on something above to begin the fun</h4>\r\n\r\n')
+        __M_writer('\r\n<img src="')
+        __M_writer(str(STATIC_URL))
+        __M_writer('chf/media/mayflower.jpg"/>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -55,6 +59,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:\\Users\\Cody\\Desktop\\chf\\chf\\templates/index.html", "source_encoding": "ascii", "uri": "index.html", "line_map": {"56": 50, "34": 1, "27": 0, "44": 3, "50": 3}}
+{"uri": "index.html", "source_encoding": "ascii", "line_map": {"35": 1, "52": 3, "53": 4, "54": 4, "27": 0, "60": 54, "45": 3}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/index.html"}
 __M_END_METADATA
 """

@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime, timedelta
+import re
 
 templater = get_renderer('chf')
 
@@ -23,8 +24,18 @@ templater = get_renderer('chf')
 def changepassword(request):
 
     params = {}
+    user = request.user
+    form = PasswordResetForm()
+
+    if request.method == "POST":
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return HttpResponseRedirect('mylogin')
 
 
+    params['form'] = form
     return templater.render_to_response(request, '/account.changepassword.html', params)
 
 ###############################################################
@@ -93,11 +104,7 @@ def edit(request):
             # user.security_answer = form.cleaned_data['security_answer']
             print(">>>>>>>>>>>>>>>>> Got here")
             user.save()
-            return HttpResponse('''
-                <script>
-                window.location.href = window.location.href;
-                </script>
-            ''')
+            return HttpResponseRedirect('/mylogin')
 
 
     params['form'] = form
@@ -154,7 +161,9 @@ class AccountCreateForm(forms.Form):
 
 class PasswordResetForm(forms.Form):
 
-    email = forms.EmailField(required=True, max_length=100)
+    password = forms.CharField(required=True, max_length=100, widget=forms.PasswordInput())
+    password1 = forms.CharField(required=True, max_length=100, widget=forms.PasswordInput())
+
 
 
 ###########################################################################
@@ -314,26 +323,33 @@ def deletecartitems(request):
             ''')
 
 @view_function
-@login_required
 def checkout(request):
 
     params = {}
 
-    if request.session['shopping_cart'] or request.session['rental_cart']:
+    user = request.user
+    if user.is_authenticated():
 
-        keys = request.session['shopping_cart'].keys()
-        item = chfmod.ProductSpecification.objects.filter(id__in=keys)
+        if request.session['shopping_cart'] or request.session['rental_cart']:
 
-        keys = request.session['rental_cart'].keys()
-        rental = chfmod.ProductSpecification.objects.filter(id__in=keys)
+            keys = request.session['shopping_cart'].keys()
+            item = chfmod.ProductSpecification.objects.filter(id__in=keys)
 
-        params['items'] = item
-        params['rentals'] = rental
+            keys = request.session['rental_cart'].keys()
+            rental = chfmod.ProductSpecification.objects.filter(id__in=keys)
 
-        return templater.render_to_response(request, '/account.checkout.html', params)
+            form = RentalUserForm()
 
-    else:
-        return HttpResponseRedirect('items')
+            params['form'] = form
+            params['items'] = item
+            params['rentals'] = rental
+
+            return templater.render_to_response(request, '/account.checkout.html', params)
+
+        else:
+            return HttpResponseRedirect('items')
+
+    return HttpResponseRedirect('mylogin.cartlogin')
 
 
 @view_function
@@ -381,12 +397,17 @@ def confirmation(request):
     else:
         print(resp['ID'])
 
-    emailbody = templater.render(request, 'checkout_email.html',params)
+    try:
+        emailbody = templater.render(request, 'checkout_email.html',params)
 
-    email = request.user.email
-    send_mail('Confirmation of Your Order #' +resp['ID'], emailbody, settings.EMAIL_HOST_USER, [email],html_message=emailbody, fail_silently=False)
-
+        email = request.user.email
+        send_mail('Confirmation of Your Order #' +resp['ID'], emailbody, settings.EMAIL_HOST_USER, [email],html_message=emailbody, fail_silently=False)
+    except:
+        pass
 
     del request.session['shopping_cart']
     del request.session['rental_cart']
     return templater.render_to_response(request, 'account.confirmation.html', params)
+
+class RentalUserForm(forms.Form):
+    customer = forms.ChoiceField(choices=[(x.id,x.first_name + ' ' + x.last_name) for x in chfmod.User.objects.all()])

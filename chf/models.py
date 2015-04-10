@@ -26,7 +26,7 @@ class Photograph(models.Model):
     date_taken = models.DateTimeField(null=True)
     place_taken = models.TextField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
-    image = models.TextField()
+    image = models.TextField(null=True)
 
     def __str__(self):
         return self.image
@@ -174,22 +174,22 @@ class Category(models.Model):
     '''
         Category within the product catalog.
     '''
-    name = models.TextField(max_length=200)
+    name = models.TextField(max_length=200,null=True,blank=True)
 
 class SubCategory(models.Model):
     '''
 
     '''
-    name = models.TextField(max_length=200)
+    name = models.TextField(max_length=200,null=True,blank=True)
     category = models.ForeignKey(Category, related_name='+', null=True)
 
 class ProductSpecification(PolymorphicModel):
     '''
         The specification of a product that is in our catalog.
     '''
-    name = models.TextField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    description = models.TextField()
+    name = models.TextField(max_length=200, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    description = models.TextField(null=True)
     manufacturer = models.TextField(max_length=80, null=True)
     average_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     sku = models.TextField(max_length=20, null=True)

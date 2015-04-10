@@ -19,11 +19,10 @@
                     <td>${user.last_name}</td>
                     <td>${user.username}</td>
                     <td>${user.email}</td>
-                    <td style="text-align:center"><button value="${user.id}" id="show_account_edit" class="btn btn-primary btn-sm">Edit</button><span> | </span><a style="color:#CF000F" href="users.delete/${user.id}">Delete</a></td>
+                    <td style="text-align:center"><a href="users.edit/${user.id}">Edit</a><span> | </span><a style="color:#CF000F" href="users.delete/${user.id}">Delete</a></td>
                 </tr>
                 %endfor
             </tbody>
         </table>
-        <button id="show_account_create" style="float:right;" class="btn btn-success btn-lg">Create New</button>
-    </div>
+         </div>
 </%block>

@@ -66,7 +66,7 @@ def edit(request):
     params = {}
 
     try:
-        item = chfmod.Item.objects.get(id=request.urlparams[0])
+        item = chfmod.ProductSpecification.objects.get(id=request.urlparams[0])
     except:
         return HttpResponseRedirect('/items')
 
@@ -74,20 +74,39 @@ def edit(request):
 
         'name': item.name,
         'description': item.description,
-        'value': item.value,
-        'standard_rental_price': item.standard_rental_price,
-        'is_rentable': item.is_rentable,
+        'price': item.price,
+        'manufacturer': item.manufacturer,
+        'average_cost': item.average_cost,
+        'sku': item.sku,
+        'order_form_name': item.order_form_name,
+        'production_time': item.production_time,
+        'category': item.category.id,
+        'subcategory': item.subcategory.id ,
+        'photo': item.photo,
+        'quantity_on_hand': item.quantity_on_hand,
+        'shelf_location': item.shelf_location,
+        'product_order_file': item.product_order_file,
     })
     if request.method == 'POST':
         form = ItemEditForm(request.POST)
         if form.is_valid():
             item.name = form.cleaned_data['name']
             item.description = form.cleaned_data['description']
-            item.value = form.cleaned_data['value']
-            item.standard_rental_price_price = form.cleaned_data['standard_rental_price']
-            item.is_rentable = form.cleaned_data['is_rentable']
+            item.manufacturer = form.cleaned_data['manufacturer']
+            item.price = form.cleaned_data['price']
+            item.average_cost = form.cleaned_data['average_cost']
+            item.sku = form.cleaned_data['sku']
+            item.order_form_name = form.cleaned_data['order_form_name']
+            item.production_time = form.cleaned_data['production_time']
+            item.subcategory = chfmod.SubCategory.objects.get(id=form.cleaned_data['subcategory'])
+            item.category = chfmod.Category.objects.get(id=form.cleaned_data['category'])
+            item.photo = chfmod.Photograph.objects.get(image=form.cleaned_data['photo'])
+            item.quantity_on_hand = form.cleaned_data['quantity_on_hand']
+            item.shelf_location = form.cleaned_data['shelf_location']
+            item.product_order_file = form.cleaned_data['product_order_file']
+
             item.save()
-            return HttpResponseRedirect('/items')
+            return HttpResponseRedirect('/manage')
 
 
     params['form'] = form
@@ -96,24 +115,29 @@ def edit(request):
 class ItemEditForm(forms.Form):
     name = forms.CharField(required=True, max_length=100)
     description = forms.CharField(required=True, max_length=400)
-    value = forms.DecimalField(required=True, max_digits=10, decimal_places=2)
-    standard_rental_price = forms.DecimalField(required=True, max_digits=10, decimal_places=2)
-    is_rentable = forms.BooleanField(required=False)
+    manufacturer = forms.CharField(required=False,max_length=80)
+    price = forms.DecimalField(required=True)
+    average_cost = forms.DecimalField(required=False,max_digits=10, decimal_places=2)
+    sku = forms.CharField(required=False,max_length=20)
+    order_form_name = forms.CharField(required=False,max_length=200)
+    production_time = forms.CharField(required=False,max_length=200)
+    category = forms.ChoiceField(choices=[(x.id,x.name) for x in chfmod.Category.objects.all()])
+    subcategory = forms.ChoiceField(choices=[(x.id,x.name) for x in chfmod.SubCategory.objects.all()])
+    photo = forms.CharField(required=False)
+    quantity_on_hand = forms.IntegerField(required=False)
+    shelf_location = forms.CharField(required=False,max_length=40)
+    product_order_file = forms.CharField(required=False)
 
-    def clean_username(self):
-        user_count = chfmod.User.objects.filter(username=self.cleaned_data['username']).exclude(id=self.userid).count()
-        if user_count >=1:
-            raise forms.ValidationError("This username is already taken.")
-
-        return self.cleaned_data['username']
 
 @view_function
 def create(request):
     '''Create new user'''
-    item = chfmod.Item()
-    item.name = ""
-    item.description = ""
-    item.is_rentable = False
+    item = chfmod.ProductSpecification()
+    item.name = ''
+    item.description = ''
+    item.shelf_location = ''
+    item.category = chfmod.Category.objects.get(id=1)
+    item.subcategory = chfmod.SubCategory.objects.get(id=1)
     item.save()
 
     return HttpResponseRedirect('/items.edit/{}'.format(item.id))

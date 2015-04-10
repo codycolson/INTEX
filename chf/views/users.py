@@ -16,7 +16,6 @@ from django.contrib.auth.decorators import permission_required
 templater = get_renderer('chf')
 
 @view_function
-#@permission_required('chf.add_user')
 def process_request(request):
 
     params = {}
@@ -38,7 +37,7 @@ def edit(request):
     try:
         user = chfmod.User.objects.get(id=request.urlparams[0])
     except:
-        pass
+        return HttpResponseRedirect('/users')
 
     form = UserEditForm(initial={
         'username': user.username,
@@ -47,14 +46,13 @@ def edit(request):
         'last_name': user.last_name,
         'is_staff': user.is_staff,
         'is_superuser': user.is_superuser,
-        'userid': user.id,
     })
     if request.method == 'POST':
         form = UserEditForm(request.POST)
+        form.userid = user.id
         print(">>>>>>>>>>>>>>>>> Got here")
         if form.is_valid():
-            user = chfmod.User.objects.get(id=form.cleaned_data['userid'])
-            print(user)
+            user = chfmod.User.objects.get(id=form.userid)
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.username = form.cleaned_data['username']
@@ -62,11 +60,7 @@ def edit(request):
             user.is_staff = form.cleaned_data['is_staff']
             user.is_superuser = form.cleaned_data['is_superuser']
             user.save()
-            return HttpResponse('''
-                <script>
-                window.location.href = window.location.href;
-                </script>
-            ''')
+            return HttpResponseRedirect('/users')
 
 
     params['form'] = form
@@ -79,7 +73,6 @@ class UserEditForm(forms.Form):
     last_name = forms.CharField(required=True, max_length=100)
     is_staff = forms.BooleanField(required=False)
     is_superuser = forms.BooleanField(required=False)
-    userid = forms.IntegerField(required=True)
 
 
     def clean_username(self):
@@ -91,7 +84,6 @@ class UserEditForm(forms.Form):
             raise forms.ValidationError("Username needs to have at least 4 characters.")
 
         return self.cleaned_data['username']
-
 
 @view_function
 def create(request):

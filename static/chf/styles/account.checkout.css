@@ -1,0 +1,75 @@
+.shopping_cart_image {
+    height:80px;
+    margin:12px;
+}
+
+.check-col {
+    margin-top:-30px;
+}
+
+.img-col {
+    width:150px;
+    text-align:left;
+}
+
+.name-col {
+    width:150px;
+    text-align:left;
+}
+
+.price-col {
+    width:135px;
+    text-align:left;
+}
+
+.qty-col {
+    width:90px;
+}
+
+#button-table {
+    margin-top:50px;
+}
+
+#delete {
+    text-align:left;
+}
+
+#space {
+    width:450px;
+}
+
+#main {
+    background-color: White;
+}
+
+.head {
+    margin-bottom:50px;
+}
+
+.left {
+    margin-left:0px;
+    float:left;
+}
+
+.input {
+    margin-left:15px;
+    margin-bottom:20px;
+}
+
+.roww {
+    margin-bottom:20px;
+    height:50px;
+}
+
+.info-head {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#checkout {
+    margin-top:50px;
+}
+
+#table-billing {
+    margin-top:50px;
+}

@@ -20,10 +20,14 @@ def process_request(request):
 
     params = {}
 
-    products = chfmod.RentalProduct.objects.all()
-    params['products'] = products
+    prodtrans = chfmod.RentalProduct.objects.all()
+    itemtrans = chfmod.ProductSpecification.objects.all()
 
-    return templater.render_to_response(request, '/manage.html', params)
+
+    params['itemtrans'] = itemtrans
+    params['prodtrans'] = prodtrans
+
+    return templater.render_to_response(request, 'manage.html', params)
 
 
 ###############################################################

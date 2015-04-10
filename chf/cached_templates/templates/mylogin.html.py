@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1428219428.103508
+_modified_time = 1428552239.293099
 _enable_loop = True
-_template_filename = 'C:\\Users\\Cody\\Desktop\\chf\\chf\\templates/mylogin.html'
+_template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/mylogin.html'
 _template_uri = 'mylogin.html'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['line', 'content']
+_exports = ['alt']
 
 
 def _mako_get_namespace(context, name):
@@ -28,19 +28,13 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def line():
-            return render_line(context._locals(__M_locals))
-        def content():
-            return render_content(context._locals(__M_locals))
+        def alt():
+            return render_alt(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
-        if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
-            context['self'].content(**pageargs)
-        
-
-        __M_writer('\r\n')
-        if 'parent' not in context._data or not hasattr(context._data['parent'], 'line'):
-            context['self'].line(**pageargs)
+        if 'parent' not in context._data or not hasattr(context._data['parent'], 'alt'):
+            context['self'].alt(**pageargs)
         
 
         __M_writer('\r\n\r\n')
@@ -49,25 +43,16 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_line(context,**pageargs):
+def render_alt(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def line():
-            return render_line(context)
+        def alt():
+            return render_alt(context)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
-        __M_writer('\r\n')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
-def render_content(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def content():
-            return render_content(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n\r\n      ')
+        __M_writer('\r\n<img src="')
+        __M_writer(str(STATIC_URL))
+        __M_writer('chf/media/mayflower.jpg"/>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -75,6 +60,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"line_map": {"64": 2, "36": 1, "70": 2, "41": 4, "58": 5, "27": 0, "76": 70, "46": 6, "52": 5}, "filename": "C:\\Users\\Cody\\Desktop\\chf\\chf\\templates/mylogin.html", "source_encoding": "ascii", "uri": "mylogin.html"}
+{"uri": "mylogin.html", "source_encoding": "ascii", "line_map": {"35": 1, "53": 2, "54": 3, "55": 3, "40": 4, "27": 0, "61": 55, "46": 2}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/mylogin.html"}
 __M_END_METADATA
 """

@@ -35,6 +35,9 @@
     %if sub:
         <li><a href="/items/${sub.id}">${sub.name}</a></li>
     %endif
+    %if request.user.is_superuser:
+        <p style="float:right"><a href="/items.create">Create New</a></p>
+    %endif
 </ol>
     </div>
 </%block>

@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1428475191.858965
+_modified_time = 1428521036.209323
 _enable_loop = True
 _template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/products.view.html'
 _template_uri = '/products.view.html'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['line', 'content', 'breadcrumbs']
+_exports = ['breadcrumbs', 'content', 'line']
 
 
 def _mako_get_namespace(context, name):
@@ -28,15 +28,15 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        item = context.get('item', UNDEFINED)
         request = context.get('request', UNDEFINED)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
-        def breadcrumbs():
-            return render_breadcrumbs(context._locals(__M_locals))
-        def line():
-            return render_line(context._locals(__M_locals))
         def content():
             return render_content(context._locals(__M_locals))
+        def line():
+            return render_line(context._locals(__M_locals))
+        def breadcrumbs():
+            return render_breadcrumbs(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        item = context.get('item', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
@@ -53,13 +53,24 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_line(context,**pageargs):
+def render_breadcrumbs(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def line():
-            return render_line(context)
+        def breadcrumbs():
+            return render_breadcrumbs(context)
+        item = context.get('item', UNDEFINED)
         __M_writer = context.writer()
-        __M_writer('\r\n')
+        __M_writer('\r\n<div>\r\n<ol class="breadcrumb">\r\n    <li><a href="/products">Products</a></li>\r\n    <li><a href="/products/')
+        __M_writer(str(item.category.id))
+        __M_writer('">')
+        __M_writer(str(item.category.name))
+        __M_writer('</a></li>\r\n    <li><a href="/products/')
+        __M_writer(str(item.category.id))
+        __M_writer('/')
+        __M_writer(str(item.subcategory.id))
+        __M_writer('">')
+        __M_writer(str(item.subcategory.name or ''))
+        __M_writer('</a></li>\r\n</ol>\r\n    </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -68,13 +79,13 @@ def render_line(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        item = context.get('item', UNDEFINED)
-        request = context.get('request', UNDEFINED)
         STATIC_URL = context.get('STATIC_URL', UNDEFINED)
-        def content():
-            return render_content(context)
         def breadcrumbs():
             return render_breadcrumbs(context)
+        request = context.get('request', UNDEFINED)
+        def content():
+            return render_content(context)
+        item = context.get('item', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n    <div id="main" class="photo">\r\n        <img class="main_photo" src="')
         __M_writer(str(STATIC_URL))
@@ -103,22 +114,13 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_breadcrumbs(context,**pageargs):
+def render_line(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        item = context.get('item', UNDEFINED)
-        def breadcrumbs():
-            return render_breadcrumbs(context)
+        def line():
+            return render_line(context)
         __M_writer = context.writer()
-        __M_writer('\r\n<div>\r\n<ol class="breadcrumb">\r\n    <li><a href="/products">Products</a></li>\r\n    <li><a href="/products/')
-        __M_writer(str(item.category.id))
-        __M_writer('">')
-        __M_writer(str(item.category.name))
-        __M_writer('</a></li>\r\n    <li><a href="/products/')
-        __M_writer(str(item.subcategory.id))
-        __M_writer('">')
-        __M_writer(str(item.subcategory.name or ''))
-        __M_writer('</a></li>\r\n</ol>\r\n    </div>\r\n')
+        __M_writer('\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -126,6 +128,6 @@ def render_breadcrumbs(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "ascii", "line_map": {"68": 2, "79": 2, "80": 4, "81": 4, "82": 4, "83": 7, "84": 7, "85": 8, "86": 8, "87": 9, "88": 9, "89": 10, "90": 11, "91": 19, "92": 19, "93": 20, "94": 21, "95": 23, "27": 0, "100": 33, "120": 30, "41": 1, "106": 25, "46": 34, "113": 25, "114": 29, "115": 29, "116": 29, "117": 29, "118": 30, "119": 30, "56": 35, "121": 30, "62": 35, "127": 121}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/products.view.html", "uri": "/products.view.html"}
+{"uri": "/products.view.html", "line_map": {"64": 29, "65": 29, "66": 29, "67": 29, "68": 30, "69": 30, "70": 30, "71": 30, "72": 30, "73": 30, "79": 2, "99": 9, "129": 123, "90": 2, "91": 4, "92": 4, "93": 4, "94": 7, "95": 7, "96": 8, "97": 8, "98": 9, "27": 0, "100": 10, "101": 11, "102": 19, "103": 19, "104": 20, "41": 1, "106": 23, "46": 34, "111": 33, "117": 35, "105": 21, "56": 25, "123": 35, "63": 25}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/products.view.html", "source_encoding": "ascii"}
 __M_END_METADATA
 """

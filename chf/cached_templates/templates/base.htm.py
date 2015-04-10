@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1428483048.737184
+_modified_time = 1428565154.352613
 _enable_loop = True
 _template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/base.htm'
-_template_uri = 'base.htm'
+_template_uri = '/base.htm'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['side', 'line', 'title', 'content', 'nine', 'alt', 'breadcrumbs']
+_exports = ['side', 'title', 'line', 'alt', 'breadcrumbs', 'nine', 'content']
 
 
 from django_mako_plus.controller import static_files 
@@ -19,23 +19,23 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        self = context.get('self', UNDEFINED)
         STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def title():
             return render_title(context._locals(__M_locals))
-        def content():
-            return render_content(context._locals(__M_locals))
         def line():
             return render_line(context._locals(__M_locals))
-        def nine():
-            return render_nine(context._locals(__M_locals))
-        def breadcrumbs():
-            return render_breadcrumbs(context._locals(__M_locals))
-        def side():
-            return render_side(context._locals(__M_locals))
         def alt():
             return render_alt(context._locals(__M_locals))
+        def nine():
+            return render_nine(context._locals(__M_locals))
+        def side():
+            return render_side(context._locals(__M_locals))
+        self = context.get('self', UNDEFINED)
         request = context.get('request', UNDEFINED)
+        def breadcrumbs():
+            return render_breadcrumbs(context._locals(__M_locals))
+        def content():
+            return render_content(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -53,7 +53,7 @@ def render_body(context,**pageargs):
         __M_writer('chf/media/jquery.loadmodal.js"></script>\r\n      <script src="http://listjs.com/no-cdn/list.js"></script>\r\n  </head>\r\n\r\n')
         __M_writer('    ')
         __M_writer(str( static_renderer.get_template_css(request, context)  ))
-        __M_writer('\r\n\r\n  <body>\r\n    <header>\r\n        <nav id="top-header" class="navbar navbar-default">\r\n            <div class="container-fluid">\r\n                <div class="navbar-header">\r\n                    <a class="navbar-brand" href="#">Colonial Heritage Foundation</a>\r\n                 </div>\r\n            </div>\r\n        </nav>\r\n    </header>\r\n    <div class="right">\r\n')
+        __M_writer('\r\n\r\n  <body>\r\n    <header>\r\n        <nav id="top-header" class="navbar navbar-default">\r\n            <div class="container-fluid">\r\n                <div class="navbar-header">\r\n                    <a class="navbar-brand" href="/">Colonial Heritage Foundation</a>\r\n                 </div>\r\n            </div>\r\n        </nav>\r\n    </header>\r\n    <div class="right">\r\n')
         if request.user.is_authenticated():
             __M_writer('            Welcome, ')
             __M_writer(str( request.user.get_full_name() ))
@@ -62,9 +62,9 @@ def render_body(context,**pageargs):
             __M_writer('            <button id="show_login_dialog" class="btn btn-success">Login</button>\r\n            <a href="account.create">Register</a>\r\n')
         __M_writer('    </div>\r\n            <div class="center-menu">\r\n            <ul class="list-inline">\r\n              <li class="header-links"><a href="/items">Items</a></li>\r\n              <li class="header-links"><a href="/products">Products</a></li>\r\n              <li class="header-links"><a href="/events">Events</a></li>\r\n')
         if request.user.is_staff:
-            __M_writer('                <li class="header-links"><a href="/products.returnrental">Return</a></li>\r\n                <li class="header-links"><a href="/batch">Batch</a></li>\r\n                <li class="header-links"><a href="/report">Report</a></li>\r\n')
+            __M_writer('                <li class="header-links"><a href="/products.returnrental">Return</a></li>\r\n                <li class="header-links"><a href="/report">Overdue</a></li>\r\n')
         if request.user.is_superuser:
-            __M_writer('                <li class="header-links"><a href="/report.accounting">Inventory</a></li>\r\n                <li class="header-links"><a href="/report.accounting">Accounting</a></li>\r\n                <li class="header-links"><a href="/users">Users</a></li>\r\n')
+            __M_writer('                <li class="header-links"><a href="/manage">Inventory</a></li>\r\n                <li class="header-links"><a href="/report.accounting">Accounting</a></li>\r\n                <li class="header-links"><a href="/users">Users</a></li>\r\n')
         if request.user.is_authenticated():
             __M_writer('                <li class="header-links" style="color:Black;"><a style="color:#D35400;font-weight:bold;" href="/account.checkout">My Cart</a></li>\r\n')
         __M_writer('            </ul>\r\n        </div>\r\n')
@@ -122,18 +122,6 @@ def render_side(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_line(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def line():
-            return render_line(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n                ')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_title(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
@@ -146,23 +134,11 @@ def render_title(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_content(context,**pageargs):
+def render_line(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def content():
-            return render_content(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n                    ')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
-def render_nine(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def nine():
-            return render_nine(context)
+        def line():
+            return render_line(context)
         __M_writer = context.writer()
         __M_writer('\r\n                ')
         return ''
@@ -194,8 +170,32 @@ def render_breadcrumbs(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_nine(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def nine():
+            return render_nine(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n                ')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
+def render_content(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def content():
+            return render_content(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n                    ')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 """
 __M_BEGIN_METADATA
-{"line_map": {"131": 97, "179": 85, "137": 75, "143": 75, "16": 4, "18": 0, "149": 79, "155": 79, "197": 191, "161": 91, "167": 91, "40": 2, "41": 4, "42": 5, "173": 85, "46": 5, "47": 17, "48": 20, "49": 20, "50": 21, "51": 21, "52": 22, "53": 22, "54": 27, "55": 27, "56": 27, "57": 40, "58": 41, "59": 41, "60": 41, "61": 42, "62": 43, "63": 46, "64": 52, "65": 53, "66": 57, "67": 58, "68": 62, "69": 63, "70": 65, "75": 69, "80": 70, "85": 76, "185": 67, "90": 80, "95": 86, "100": 92, "105": 98, "106": 116, "107": 116, "108": 116, "114": 70, "191": 67, "125": 97}, "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/base.htm", "source_encoding": "ascii", "uri": "base.htm"}
+{"uri": "/base.htm", "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/base.htm", "line_map": {"131": 74, "179": 90, "137": 96, "143": 96, "16": 4, "18": 0, "149": 84, "155": 84, "197": 191, "161": 66, "167": 66, "40": 2, "41": 4, "42": 5, "173": 90, "46": 5, "47": 17, "48": 20, "49": 20, "50": 21, "51": 21, "52": 22, "53": 22, "54": 27, "55": 27, "56": 27, "57": 40, "58": 41, "59": 41, "60": 41, "61": 42, "62": 43, "63": 46, "64": 52, "65": 53, "66": 56, "67": 57, "68": 61, "69": 62, "70": 64, "75": 68, "80": 69, "85": 75, "185": 78, "90": 79, "95": 85, "100": 91, "105": 97, "106": 115, "107": 115, "108": 115, "114": 69, "191": 78, "125": 74}, "source_encoding": "ascii"}
 __M_END_METADATA
 """

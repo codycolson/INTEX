@@ -31,7 +31,7 @@
         <nav id="top-header" class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Colonial Heritage Foundation</a>
+                    <a class="navbar-brand" href="/">Colonial Heritage Foundation</a>
                  </div>
             </div>
         </nav>
@@ -51,11 +51,10 @@
               <li class="header-links"><a href="/events">Events</a></li>
                 %if request.user.is_staff:
                 <li class="header-links"><a href="/products.returnrental">Return</a></li>
-                <li class="header-links"><a href="/batch">Batch</a></li>
-                <li class="header-links"><a href="/report">Report</a></li>
+                <li class="header-links"><a href="/report">Overdue</a></li>
                 %endif
                 %if request.user.is_superuser:
-                <li class="header-links"><a href="/report.accounting">Inventory</a></li>
+                <li class="header-links"><a href="/manage">Inventory</a></li>
                 <li class="header-links"><a href="/report.accounting">Accounting</a></li>
                 <li class="header-links"><a href="/users">Users</a></li>
                 %endif

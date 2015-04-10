@@ -61,6 +61,10 @@ user2.set_password('password')
 user2.save()
 print('User Jordan Created')
 
+cat = chfmod.Category()
+cat.name = ''
+cat.save()
+
 cat1 = chfmod.Category()
 cat1.name = 'Weapons'
 cat1.save()
@@ -76,6 +80,11 @@ cat3.save()
 cat4 = chfmod.Category()
 cat4.name = 'Custom Orders'
 cat4.save()
+
+subcat = chfmod.SubCategory()
+subcat.name = ""
+subcat.category = cat
+subcat.save()
 
 subcat1 = chfmod.SubCategory()
 subcat1.name = "Hats"
@@ -96,6 +105,10 @@ subcat4 = chfmod.SubCategory()
 subcat4.name = "Uniforms"
 subcat4.category = cat3
 subcat4.save()
+
+phot = chfmod.Photograph()
+phot.image = ""
+phot.save()
 
 photo = chfmod.Photograph()
 photo.image = "chf/media/oldhat.jpg"
@@ -126,7 +139,7 @@ prod1.price = 30
 prod1.category = cat3
 prod1.subcategory = subcat1
 prod1.sku = 1234567890
-prod1.photo = chfmod.Photograph.objects.get(id=1)
+prod1.photo = chfmod.Photograph.objects.get(id=2)
 prod1.quantity_on_hand = 5
 prod1.cost = 35
 prod1.notes = "I hate this hat"
@@ -143,7 +156,7 @@ prod2.price = 70
 prod2.category = cat3
 prod2.subcategory = subcat2
 prod2.sku = 123456789
-prod2.photo = chfmod.Photograph.objects.get(id=2)
+prod2.photo = chfmod.Photograph.objects.get(id=3)
 prod2.quantity_on_hand = 1
 prod2.cost = 35
 prod2.notes = "I hate these pants"
@@ -160,7 +173,7 @@ prod3.price = 120
 prod3.category = cat3
 prod3.subcategory = subcat4
 prod3.sku = 12345678
-prod3.photo = chfmod.Photograph.objects.get(id=3)
+prod3.photo = chfmod.Photograph.objects.get(id=4)
 prod3.quantity_on_hand = 1
 prod3.save()
 
@@ -173,7 +186,7 @@ prod4.price = 150
 prod4.category = cat3
 prod4.subcategory = subcat4
 prod4.sku = 1234567
-prod4.photo = chfmod.Photograph.objects.get(id=4)
+prod4.photo = chfmod.Photograph.objects.get(id=5)
 prod4.quantity_on_hand = 1
 prod4.save()
 
@@ -184,8 +197,9 @@ prod5.manufacturer = "Smith & Wesson"
 prod5.average_cost = 200
 prod5.price = 499
 prod5.category = cat1
+prod5.subcategory = subcat
 prod5.sku = 123456
-prod5.photo = chfmod.Photograph.objects.get(id=5)
+prod5.photo = chfmod.Photograph.objects.get(id=6)
 prod5.quantity_on_hand = 5
 prod5.save()
 
@@ -199,12 +213,13 @@ p1.price = 1000.00
 p1.description = 'These are easily the best boots you will ever wear.'
 p1.manufacturer = 'Smith & Wesson'
 p1.category = chfmod.Category.objects.get(name='Clothing')
+p1.subcategory = subcat
 p1.sku = 123456789
 p1.average_cost = 1000.00
 p1.photo = chfmod.Photograph.objects.create(image="chf/media/boots.jpg")
 print('image #1:' + p1.photo.image)
 p1.quantity_on_hand = 5
-p1.shelf_location = 'somehwere'
+p1.shelf_location = 'somewhere'
 p1.save()
 
 p2 = chfmod.ProductSpecification()
@@ -213,6 +228,7 @@ p2.price = 100.50
 p2.description = 'Just a flag'
 p2.manufacturer = "'Merica"
 p2.category = chfmod.Category.objects.get(name='Decoration')
+p2.subcategory = subcat
 p2.sku = 123456789
 p2.average_cost = 100.00
 p2.photo = chfmod.Photograph.objects.create(image="chf/media/old_flag.jpg")
@@ -227,13 +243,14 @@ p3.price = 80.00
 p3.description = 'This is a homeade basket made for you by a professional basketweaver.'
 p3.manufacturer = 'Basketweaver'
 p3.category = chfmod.Category.objects.get(name='Custom Orders')
+p3.subcategory = subcat
 p3.sku = 123456789
 p3.average_cost = 80.00
 p3.photo = chfmod.Photograph.objects.create(image="chf/media/basket.jpg")
 print('image #1:' + p1.photo.image)
 p3.quantity_on_hand = 5
 p3.shelf_location = 'somehwere'
-p3.order_form_name = 'chf/media/basket_order.pdf'
+p3.order_form_name = 'file/basket_order.pdf'
 p3.save()
 
 # prod = chfmod.RentalProduct()

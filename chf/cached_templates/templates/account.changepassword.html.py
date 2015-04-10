@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1428481260.268407
+_modified_time = 1428518766.241542
 _enable_loop = True
 _template_filename = 'C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/account.changepassword.html'
 _template_uri = '/account.changepassword.html'
@@ -28,6 +28,7 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        form = context.get('form', UNDEFINED)
         def content():
             return render_content(context._locals(__M_locals))
         __M_writer = context.writer()
@@ -45,10 +46,13 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        form = context.get('form', UNDEFINED)
         def content():
             return render_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div>\r\n        <input class="password"/>\r\n    </div>\r\n')
+        __M_writer('\r\n    <div class="table-responsive">\r\n       <form id="loginform" method="post" action="account.changepassword">\r\n        <table>\r\n            <tr>\r\n            ')
+        __M_writer(str( form ))
+        __M_writer('\r\n            </tr>\r\n        </table>\r\n        <button id="login-button" class="btn btn-success" type="submit">Change Password</button>\r\n    </form>\r\n        </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -56,6 +60,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/account.changepassword.html", "line_map": {"34": 1, "51": 2, "39": 6, "57": 51, "27": 0, "45": 2}, "source_encoding": "ascii", "uri": "/account.changepassword.html"}
+{"uri": "/account.changepassword.html", "filename": "C:\\Users\\Cody\\Desktop\\Heritage\\chf\\templates/account.changepassword.html", "source_encoding": "ascii", "line_map": {"35": 1, "53": 2, "54": 7, "55": 7, "40": 13, "27": 0, "61": 55, "46": 2}}
 __M_END_METADATA
 """

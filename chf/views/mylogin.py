@@ -23,6 +23,13 @@ def process_request(request):
 
     return templater.render_to_response(request, 'mylogin.html', params)
 
+@view_function
+def cartlogin(request):
+
+    params = {}
+
+    return templater.render_to_response(request, 'mylogincart.html', params)
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
